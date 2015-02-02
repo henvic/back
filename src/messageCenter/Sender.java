@@ -13,11 +13,12 @@ public class Sender {
     private User destination;
     private InetAddress destinationIP;
     private DatagramSocket senderSocket;
+    private boolean counter;
     private static int PORT = 2000;
 
     public Sender(User destination) throws UnknownHostException, SocketException {
         this.destination = destination;
-        this.destinationIP =InetAddress.getByName(destination.getCurrentIP());
+        this.destinationIP =InetAddress.getByName(destination.getIP());
         this.senderSocket = new DatagramSocket();
 
     }
