@@ -18,7 +18,7 @@ public class Sender {
 
     public Sender(User destination) throws UnknownHostException, SocketException {
         this.destination = destination;
-        this.destinationIP =InetAddress.getByName(destination.getIP());
+        this.destinationIP = InetAddress.getByName(destination.getIP());
         this.senderSocket = new DatagramSocket();
 
     }

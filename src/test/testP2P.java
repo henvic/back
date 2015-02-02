@@ -21,10 +21,14 @@ public class testP2P {
             BackTP protocol = new BackTP(user, true);
 
             boolean running = true;
+
             while(running){
+                System.out.println("eu aqui");
                 String message = in.nextLine();
-                if (message.equals("/q")) {
+
+                if (message.equals("quit")) {
                     running = false;
+                    protocol.server.interrupt();
                 } else {
                     protocol.sendText(message);
                 }
