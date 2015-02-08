@@ -18,8 +18,7 @@ public class testP2P {
         user.setIP("172.22.46.18");
 
         try {
-            BackTP protocol = new BackTP(user, true);
-
+            BackTP protocol = new BackTP(user, true, true);
             boolean running = true;
 
             while(running){
