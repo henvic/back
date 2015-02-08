@@ -12,14 +12,14 @@ public class BackTP {
     public Thread server;
     public Sender client;
 
-    public BackTP(User destination, boolean running) throws SocketException, UnknownHostException {
-        server = new Thread(new Receiver(destination, running));
-        server.start();
+    public BackTP(User destination, boolean running, boolean tcp) throws IOException {
+		server = new Thread(new Receiver(destination, running, tcp));
+		server.start();
 
-        client = new Sender(destination);
+		client = new Sender(destination, tcp);
     }
 
     public void sendText(String text) throws IOException {
-        client.send(text.getBytes());
-    }
+		client.send(text);
+	}
 }
