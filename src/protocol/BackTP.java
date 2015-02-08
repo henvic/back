@@ -12,11 +12,14 @@ public class BackTP {
     public Thread server;
     public Sender client;
 
+	//tirar tcp
     public BackTP(User destination, boolean running, boolean tcp) throws IOException {
+		client = new Sender(destination, tcp);
+
 		server = new Thread(new Receiver(destination, running, tcp));
 		server.start();
 
-		client = new Sender(destination, tcp);
+
     }
 
     public void sendText(String text) throws IOException {

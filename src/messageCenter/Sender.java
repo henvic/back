@@ -19,12 +19,12 @@ public class Sender {
 	private boolean tcp;
     private static int PORT = 2000;
 
-    public Sender(User destination, boolean tcp) throws UnknownHostException, SocketException {
+    public Sender(User destination, boolean tcp) throws IOException {
         this.destination = destination;
         this.destinationIP = InetAddress.getByName(destination.getIP());
 		this.tcp = tcp;
 		if (tcp) {
-			this.senderSocket = new Socket();
+			this.senderSocket = new Socket(destinationIP, PORT);
 		} else {
 			this.senderDSocket = new DatagramSocket();
 		}

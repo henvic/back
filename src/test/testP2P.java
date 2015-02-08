@@ -15,8 +15,9 @@ public class testP2P {
     public static void main (String[] args) {
         Scanner in = new Scanner(System.in);
         User user = new User("<nome aqui>");
-        user.setIP("172.22.46.18");
+        user.setIP("172.20.4.5");
 
+		//criar classe tcp e escolher entre BTP ou TCP
         try {
             BackTP protocol = new BackTP(user, true, true);
             boolean running = true;
