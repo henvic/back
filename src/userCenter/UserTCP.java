@@ -1,19 +1,17 @@
 package userCenter;
 
-import interfaces.UsersInterface;
 import modules.User;
 
 /**
  * Created by leo on 28/01/2015.
  */
-public class UserTCP extends User implements UsersInterface{
+public class UserTCP extends User {
 	/**
 	 * needs Receiver and Sender attribute
 	 */
 
     public UserTCP (String username, String ip) {
         super(username, ip);
-		this.set
     }
 
 	@Override
