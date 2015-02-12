@@ -1,8 +1,8 @@
 package test;
 
-import modules.User;
+import userCenter.UserBTP;
 import protocol.BackTP;
-
+import modules.User;
 import java.io.IOException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
@@ -14,8 +14,8 @@ import java.util.Scanner;
 public class testP2P {
     public static void main (String[] args) {
         Scanner in = new Scanner(System.in);
-        User user = new User("<nome aqui>");
-        user.setIP("172.20.4.5");
+        User user = new UserBTP("<nome aqui>");
+        user.setIp("172.20.4.5");
 
 		//criar classe tcp e escolher entre BTP ou TCP
         try {
