@@ -1,4 +1,4 @@
-package messageCenter;
+package modules;
 
 import modules.User;
 
@@ -21,7 +21,7 @@ public class Sender {
 
     public Sender(User destination, boolean tcp) throws IOException {
         this.destination = destination;
-        this.destinationIP = InetAddress.getByName(destination.getIP());
+        this.destinationIP = InetAddress.getByName(destination.getIp());
 		this.tcp = tcp;
 		if (tcp) {
 			this.senderSocket = new Socket(destinationIP, PORT);

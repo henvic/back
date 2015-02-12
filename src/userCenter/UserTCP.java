@@ -1,8 +1,6 @@
-package modulesTCP;
+package userCenter;
 
 import interfaces.UsersInterface;
-import messageCenter.Receiver;
-import messageCenter.Sender;
 import modules.User;
 
 /**
@@ -12,11 +10,10 @@ public class UserTCP extends User implements UsersInterface{
 	/**
 	 * needs Receiver and Sender attribute
 	 */
-	private Receiver receiver;
-	private Sender sender;
 
     public UserTCP (String username, String ip) {
         super(username, ip);
+		this.set
     }
 
 	@Override
