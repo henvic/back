@@ -104,18 +104,4 @@ public abstract class User {
 	 * method: open client side
 	 */
 	public abstract void openClient();
-	/////////////////////////// GLOBAL /////////////////////////// CHANGE TO PROTOCOL
-
-	/**
-	 * method: sends message
-	 * param ip: destinationIp
-	 * other param to flags (ack, openServer, connectionRequest...)
-	 */
-	public abstract void sendMessage(String destinationIp);
-
-	/**
-	 * method: process the ack receiving
-	 * description: Update nextSeq number
-	 */
-	public abstract void receiveACK();
 }

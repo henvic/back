@@ -25,7 +25,7 @@ public abstract class Receiver {
 		return PORT;
 	}
 
-	public static int getBufferSize() {
+	public int getBufferSize() {
 		return BUFFER_SIZE;
 	}
 

@@ -31,14 +31,14 @@ public class Sender {
 
     }
 
-    public void send(String data) throws IOException {
+    public void send(byte[] data) throws IOException {
 		if (!tcp) {
 
 			this.senderSocket = new Socket(destinationIP, PORT);
 			DataOutputStream outputStream = new DataOutputStream(this.senderSocket.getOutputStream());
-			outputStream.writeBytes(data);
+			outputStream.write(data);
 		} else {
-			byte[] dataBytes = data.getBytes();
+			byte[] dataBytes = data;
 			DatagramPacket packet;
 			packet = new DatagramPacket(dataBytes, dataBytes.length, destinationIP, PORT);
 			this.senderDSocket.send(packet);

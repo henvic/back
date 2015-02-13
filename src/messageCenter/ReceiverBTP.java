@@ -2,6 +2,7 @@ package messageCenter;
 
 import modules.Receiver;
 import modules.User;
+import protocol.Packet;
 
 import java.io.*;
 import java.net.*;
@@ -29,7 +30,7 @@ public class ReceiverBTP extends Receiver implements Runnable {
                 if(this.isRunning()) {
 					//UDP receive
 					this.receiverSocket.receive(packet);
-					pacote p = packet.getData();
+
 					//System.out.println(this.getDestination().getIp() + " falou: " + new String(packet.getData()));
 
 					File saida = new File("downloads/arq.jpeg");
@@ -49,4 +50,23 @@ public class ReceiverBTP extends Receiver implements Runnable {
 
         }
     }
+
+	public Packet receivePacket (byte[] data) {
+		String dataString = new String(data);
+
+		int firstParam = dataString.indexOf("\n");
+
+		int secondParam = dataString.indexOf("\n", firstParam+1);
+
+		int thirdParam = dataString.indexOf("\n", secondParam+1);
+
+		int param4 = dataString.indexOf("\n", thirdParam+1);
+
+		int param5 = dataString.indexOf("\n", param4+1);
+
+		int param6 = dataString.indexOf("\n", param4+5);
+
+		return new Packet(dataString.substring(0, firstParam), dataString.substring(firstParam + 1, secondParam), Integer.parseInt(dataString.substring(secondParam + 1, thirdParam)), Integer.parseInt(dataString.substring(thirdParam+1, param4)), Boolean.parseBoolean(dataString.substring(param4 + 1, param5)), dataString.substring(param6+1).getBytes());
+
+	}
 }
