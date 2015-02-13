@@ -29,16 +29,15 @@ public class ReceiverBTP extends Receiver implements Runnable {
                 if(this.isRunning()) {
 					//UDP receive
 					this.receiverSocket.receive(packet);
+					pacote p = packet.getData();
 					//System.out.println(this.getDestination().getIp() + " falou: " + new String(packet.getData()));
 
-					File saida = new File("downloads/arq.txt");
+					File saida = new File("downloads/arq.jpeg");
 					FileOutputStream saidaII = new FileOutputStream(saida);
 					//flush prepara o arquivo para ser bufferizado(escrever os bytes nele)
 					saidaII.flush();
 					//write, escreve os bytes no arquivo
 					saidaII.write(packet.getData());
-					saidaII.flush();
-					saidaII.close();
 					packet.setData(new byte[this.getBufferSize()]);
 
 					//envia ack

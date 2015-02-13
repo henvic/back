@@ -104,7 +104,7 @@ public abstract class User {
 	 * method: open client side
 	 */
 	public abstract void openClient();
-	/////////////////////////// GLOBAL ///////////////////////////
+	/////////////////////////// GLOBAL /////////////////////////// CHANGE TO PROTOCOL
 
 	/**
 	 * method: sends message
