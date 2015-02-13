@@ -3,9 +3,7 @@ package messageCenter;
 import modules.Receiver;
 import modules.User;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.*;
 
 /**
@@ -31,7 +29,14 @@ public class ReceiverBTP extends Receiver implements Runnable {
                 if(this.isRunning()) {
 					//UDP receive
 					this.receiverSocket.receive(packet);
-					System.out.println(this.getDestination().getIp() + " falou: " + new String(packet.getData()));
+					//System.out.println(this.getDestination().getIp() + " falou: " + new String(packet.getData()));
+					File saida = new File("Vermelho.jpg");
+					FileOutputStream saidaII = new FileOutputStream(saida);
+					//flush prepara o arquivo para ser bufferizado(escrever os bytes nele)
+					saidaII.flush();
+					//write, escreve os bytes no arquivo
+					saidaII.write(packet.getData());
+					saidaII.flush();
 					packet.setData(new byte[this.getBufferSize()]);
 
 					//envia ack
