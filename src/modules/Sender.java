@@ -23,7 +23,7 @@ public class Sender {
         this.destination = destination;
         this.destinationIP = InetAddress.getByName(destination.getIp());
 		this.tcp = tcp;
-		if (tcp) {
+		if (!tcp) {
 			this.senderSocket = new Socket(destinationIP, PORT);
 		} else {
 			this.senderDSocket = new DatagramSocket();
@@ -32,7 +32,7 @@ public class Sender {
     }
 
     public void send(String data) throws IOException {
-		if (tcp) {
+		if (!tcp) {
 
 			this.senderSocket = new Socket(destinationIP, PORT);
 			DataOutputStream outputStream = new DataOutputStream(this.senderSocket.getOutputStream());

@@ -58,7 +58,4 @@ public class UserBTP extends User {
 
 	}
 
-	public void x (){
-
-	}
 }

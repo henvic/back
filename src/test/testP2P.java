@@ -14,12 +14,11 @@ import java.util.Scanner;
 public class testP2P {
     public static void main (String[] args) {
         Scanner in = new Scanner(System.in);
-        User user = new UserBTP("<nome aqui>");
-        user.setIp("172.20.4.5");
+		User me = new UserBTP("leo", "172.22.46.18");
+        User user = new UserBTP("<nome aqui>", "172.22.46.18"); //destino
 
-		//criar classe tcp e escolher entre BTP ou TCP
         try {
-            BackTP protocol = new BackTP(user, true, true);
+            BackTP protocol = new BackTP((UserBTP)me, (UserBTP)user, true);
             boolean running = true;
 
             while(running){
