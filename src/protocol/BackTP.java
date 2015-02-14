@@ -15,14 +15,14 @@ public class BackTP {
 	 */
 
 	public UserBTP sourceUser;
-    public Thread server;
+	public Thread server;
 	private ReceiverBTP receiver;
-    public Sender client;
+	public Sender client;
 
 	private int fileNumber;
 	private int nextSeq;
 
-    public BackTP(UserBTP source, UserBTP destination, boolean running) throws IOException {
+	public BackTP(UserBTP source, UserBTP destination, boolean running) throws IOException {
 		this.client = new Sender(destination, running);
 
 		this.sourceUser = source;
@@ -31,9 +31,9 @@ public class BackTP {
 		this.server.start();
 
 		this.fileNumber = 0;
-    }
+	}
 
-    public void sendText(String text) throws IOException {
+	public void sendText(String text) throws IOException {
 		send(text.getBytes(), "default");
 	}
 

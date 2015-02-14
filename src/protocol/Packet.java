@@ -20,6 +20,7 @@ public class Packet implements Serializable {
 		this.id = id;
 		this.offset = 0;
 		this.finalPart = true;
+		this.dataLength = data.length;
 	}
 
 	public Packet(int fileNumber, String fileType, int id, int offset, boolean finalPart, byte[] data){
@@ -31,6 +32,17 @@ public class Packet implements Serializable {
 		this.offset = offset;
 		this.finalPart = finalPart;
 		this.dataLength = this.data.length;
+	}
+	
+	public Packet(int fileNumber, String fileType, int id, int offset, boolean finalPart, byte[] data, int dataLength){
+		this.fileName = "backChat-file" + fileNumber;
+		this.fileNumber = fileNumber;
+		this.fileType = fileType;
+		this.data = data;
+		this.id = id;
+		this.offset = offset;
+		this.finalPart = finalPart;
+		this.dataLength = dataLength;
 	}
 
 	public String getfileType() {
@@ -67,6 +79,14 @@ public class Packet implements Serializable {
 
 	public String toString(){
 		return fileNumber + "\n" + fileType + "\n" + id + "\n" + offset + "\n" + finalPart + "\n" + dataLength + "\n" + new String(data);
+	}
+
+	public int getDataLength() {
+		return dataLength;
+	}
+
+	public void setDataLength(int dataLength) {
+		this.dataLength = dataLength;
 	}
 
 }

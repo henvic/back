@@ -17,8 +17,8 @@ import java.util.Scanner;
 public class testP2P {
     public static void main (String[] args) {
         Scanner in = new Scanner(System.in);
-		User me = new UserBTP("leo", "172.22.46.18");
-        User user = new UserBTP("<nome aqui>", "172.22.46.112"); //destino
+		User me = new UserBTP("leo", "LocalHost");
+        User user = new UserBTP("<nome aqui>", "LocalHost"); //destino
         
         try {
             BackTP protocol = new BackTP((UserBTP)me, (UserBTP)user, true);
