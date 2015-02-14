@@ -12,9 +12,9 @@ public class Packet implements Serializable {
 	private int dataLength;
 	private byte[] data;
 
-	public Packet(String fileNumber, String fileType, int id, byte[] data){
+	public Packet(int fileNumber, String fileType, int id, byte[] data){
 		this.fileName = "backChat-file" + fileNumber;
-		this.fileNumber = Integer.parseInt(fileNumber);
+		this.fileNumber = fileNumber;
 		this.fileType = fileType;
 		this.data = data;
 		this.id = id;
@@ -22,9 +22,9 @@ public class Packet implements Serializable {
 		this.finalPart = true;
 	}
 
-	public Packet(String fileNumber, String fileType, int id, int offset, boolean finalPart, byte[] data){
+	public Packet(int fileNumber, String fileType, int id, int offset, boolean finalPart, byte[] data){
 		this.fileName = "backChat-file" + fileNumber;
-		this.fileNumber = Integer.parseInt(fileNumber);
+		this.fileNumber = fileNumber;
 		this.fileType = fileType;
 		this.data = data;
 		this.id = id;

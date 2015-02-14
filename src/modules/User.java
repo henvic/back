@@ -104,4 +104,10 @@ public abstract class User {
 	 * method: open client side
 	 */
 	public abstract void openClient();
+
+	public abstract void sendMessage(String destinationIp);
+
+	public abstract void receiveACK();
+	
+	
 }

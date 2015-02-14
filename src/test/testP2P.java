@@ -3,6 +3,9 @@ package test;
 import userCenter.UserBTP;
 import protocol.BackTP;
 import modules.User;
+
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
@@ -16,7 +19,7 @@ public class testP2P {
         Scanner in = new Scanner(System.in);
 		User me = new UserBTP("leo", "172.22.46.18");
         User user = new UserBTP("<nome aqui>", "172.22.46.112"); //destino
-
+        
         try {
             BackTP protocol = new BackTP((UserBTP)me, (UserBTP)user, true);
             boolean running = true;
@@ -28,6 +31,15 @@ public class testP2P {
                 if (message.equals("quit")) {
                     running = false;
                     protocol.server.interrupt();
+                   //tentar enviar arquivo
+                } else if(message.startsWith("Arquive:")){
+                	File arq = new File(message.substring(message.indexOf(" ")+1));
+        			FileInputStream file = new FileInputStream(arq);
+        			byte[] sendData = new byte[(int) arq.length()];
+        			file.read(sendData);
+        			//caso queira testar o tamanho do arquivo enviado e o local, descomentar a linha abaixo e na classe testP2P
+        			//System.err.println(sendData.length);
+                    protocol.send(sendData,message.substring(message.indexOf('.')+1));
                 } else {
                     protocol.sendText(message);
                 }
