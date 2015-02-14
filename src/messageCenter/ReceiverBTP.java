@@ -64,9 +64,9 @@ public class ReceiverBTP extends Receiver implements Runnable {
 
 		int param5 = dataString.indexOf("\n", param4+1);
 
-		int param6 = dataString.indexOf("\n", param4+5);
+		int param6 = dataString.indexOf("\n", param5+1 );
 
-		return new Packet(dataString.substring(0, firstParam), dataString.substring(firstParam + 1, secondParam), Integer.parseInt(dataString.substring(secondParam + 1, thirdParam)), Integer.parseInt(dataString.substring(thirdParam+1, param4)), Boolean.parseBoolean(dataString.substring(param4 + 1, param5)), dataString.substring(param6+1).getBytes());
+		return new Packet(Integer.parseInt(dataString.substring(0, firstParam)), dataString.substring(firstParam + 1, secondParam), Integer.parseInt(dataString.substring(secondParam + 1, thirdParam)), Integer.parseInt(dataString.substring(thirdParam+1, param4)), Boolean.parseBoolean(dataString.substring(param4 + 1, param5)), dataString.substring(param6+1).getBytes());
 
 	}
 }
