@@ -44,20 +44,52 @@ public class Packet implements Serializable {
 		this.finalPart = finalPart;
 		this.dataLength = dataLength;
 	}
+	
+	public boolean isFinalPart() {
+		return finalPart;
+	}
 
-	public String getfileType() {
+	public void setFinalPart(boolean finalPart) {
+		this.finalPart = finalPart;
+	}
+
+	public int getOffset() {
+		return offset;
+	}
+
+	public void setOffset(int offset) {
+		this.offset = offset;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public int getFileNumber() {
+		return fileNumber;
+	}
+
+	public void setFileNumber(int fileNumber) {
+		this.fileNumber = fileNumber;
+	}
+
+	public String getFileType() {
 		return fileType;
 	}
 
-	public void setfileType(String fileType) {
+	public void setFileType(String fileType) {
 		this.fileType = fileType;
 	}
 
-	public byte[] getdata() {
+	public byte[] getData() {
 		return data;
 	}
 
-	public void setdata(byte[] data) {
+	public void setData(byte[] data) {
 		this.data = data;
 	}
 
@@ -67,14 +99,6 @@ public class Packet implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public int getoffset() {
-		return offset;
-	}
-
-	public void setoffset(int offset) {
-		this.offset = offset;
 	}
 
 	public String toString(){

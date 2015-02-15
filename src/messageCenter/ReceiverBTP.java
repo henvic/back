@@ -12,57 +12,46 @@ import java.net.*;
  */
 public class ReceiverBTP extends Receiver implements Runnable {
 
-    private DatagramSocket receiverSocket;
+	private DatagramSocket receiverSocket;
+	public static byte[] arquivo;
 
-    public ReceiverBTP(User destination, boolean running) throws IOException {
+	public ReceiverBTP(User destination, boolean running) throws IOException {
 		super(destination, running);
-        this.receiverSocket = new DatagramSocket(this.getPORT());
+		this.receiverSocket = new DatagramSocket(this.getPORT());
 
-    }
+	}
 
 	public void run() {
-        while (true) {
-            //UDP buffer
+		while (true) {
+			//UDP buffer
 			byte[] udpBuffer = new byte[this.getBufferSize()];
-            DatagramPacket packet = new DatagramPacket(udpBuffer, udpBuffer.length);
+			DatagramPacket packet = new DatagramPacket(udpBuffer, udpBuffer.length);
 
 			try {
-                if(this.isRunning()) {
+				if(this.isRunning()) {
 					//UDP receive
 					this.receiverSocket.receive(packet);
 					Packet p = receivePacket(packet.getData());
-					if(p.getfileType().equals("default")){
-						System.err.println(this.getDestination().getIp() + " falou: " + new String( p.getdata()));
+					if(p.getFileType().equals("default")){
+						System.err.println(this.getDestination().getIp() + " falou: " + new String( p.getData()));
 
 					} else {
 						//trocar o "Padrão." por um nome padrão incremental para arquivos recebidos
-						File saida = new File("downloads/" + "Padrão." + p.getfileType());
-						FileOutputStream saidaII = new FileOutputStream(saida);
-						//flush prepara o arquivo para ser bufferizado(escrever os bytes nele)
-						saidaII.flush();
-						//write, escreve os bytes no arquivo
-						System.err.println(p.getDataLength());
-						saidaII.write(p.getdata(), 0, p.getDataLength());
-						saidaII.flush();
-						//fechando o arquivo
-						saidaII.close();
-						//temos que otimizar para quando formos enviar arquivos fragmentados
-						System.err.println(this.getDestination().getIp() + "Enviou o arquivo: " + " Padrão." + p.getfileType() + "\nConfira a pasta \"Downloads\"");
-						System.out.println(p);
-
+						
+						System.err.println(p);
 					}
-					
+
 					//n sei o que é isso, by Deyv
 					packet.setData(new byte[this.getBufferSize()]);
 					//envia ack
-                }
+				}
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 
-        }
-    }
+		}
+	}
 
 	public Packet receivePacket (byte[] data) {
 		String dataString = new String(data);

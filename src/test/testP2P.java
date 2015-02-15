@@ -32,14 +32,14 @@ public class testP2P {
                     running = false;
                     protocol.server.interrupt();
                    //tentar enviar arquivo
-                } else if(message.startsWith("Arquive:")){
+                } else if(message.startsWith("Arquivo:")){
                 	File arq = new File(message.substring(message.indexOf(" ")+1));
         			FileInputStream file = new FileInputStream(arq);
         			byte[] sendData = new byte[(int) arq.length()];
         			file.read(sendData);
         			//caso queira testar o tamanho do arquivo enviado e o local, descomentar a linha abaixo e na classe testP2P
         			//System.err.println(sendData.length);
-                    protocol.send(sendData,message.substring(message.indexOf('.')+1));
+                    protocol.send(sendData, message.substring(message.indexOf('.')+1));
                 } else {
                     protocol.sendText(message);
                 }

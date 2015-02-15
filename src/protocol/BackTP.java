@@ -7,6 +7,8 @@ import userCenter.UserBTP;
 
 import java.io.IOException;
 
+import com.sun.security.ntlm.Client;
+
 public class BackTP {
 	/**
 	 * link between source user and receiver/sender class
@@ -38,12 +40,25 @@ public class BackTP {
 	}
 
 	public void send(byte[] data, String fileExtension) throws IOException {
-		if (data.length > receiver.getBufferSize()){
-			//fragmenta
-		} else {
-			Packet p = new Packet(this.fileNumber, fileExtension, nextSeq, data);
+		//em fase de test
+		int tam = receiver.getBufferSize();
+		int qtdPacotes = data.length/tam + 1;
+		for(int i = 0; i < qtdPacotes-1; i++){
+			byte[] dados = new byte[tam];
+			for(int j = 0; j < tam; j++) dados[j] = data[j + i*tam];
+			Packet p = new Packet(this.fileNumber, fileExtension, nextSeq, i*tam, false, dados, data.length);
 			client.send(getPacketBytes(p));
+			nextSeq += 1;
+//			System.out.println(nextSeq);
 		}
+		byte[] dados = new byte[tam];
+		int fim = data.length%tam;
+		for(int j = 0; j < fim; j++) dados[j] = data[j + (qtdPacotes-1)*tam];
+		Packet p = new Packet(this.fileNumber, fileExtension, nextSeq, (qtdPacotes-1)*tam, true, dados, data.length);
+		client.send(getPacketBytes(p));
+		this.fileNumber += 1;
+		nextSeq += 1;
+
 	}
 
 	private byte[] getPacketBytes(Packet p){
