@@ -26,8 +26,9 @@ public class testP2P {
 
             while(running){
                 System.out.println("eu aqui");
+                System.out.println(System.currentTimeMillis());
                 String message = in.nextLine();
-
+                
                 if (message.equals("quit")) {
                     running = false;
                     protocol.server.interrupt();

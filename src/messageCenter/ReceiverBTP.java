@@ -22,6 +22,17 @@ public class ReceiverBTP extends Receiver implements Runnable {
 	}
 
 	public void run() {
+		File saida = new File("downloads/" + "Padr√£o.txt");
+		FileOutputStream saidaII = null;
+		if(!saida.exists()){
+			try {
+				saidaII = new FileOutputStream(saida);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
 		while (true) {
 			//UDP buffer
 			byte[] udpBuffer = new byte[this.getBufferSize()];
@@ -36,12 +47,18 @@ public class ReceiverBTP extends Receiver implements Runnable {
 						System.err.println(this.getDestination().getIp() + " falou: " + new String( p.getData()));
 
 					} else {
-						//trocar o "Padr„o." por um nome padr„o incremental para arquivos recebidos
+						//trocar o "Padr√£o." por um nome padr√£o incremental para arquivos recebidos
+						saidaII.flush();
+						saidaII.write(p.getData());
+						saidaII.flush();
+						if(p.getDataLength() <= p.getOffset() + getBufferSize()){
+							saidaII.close();
+						}
+						//System.err.println(p);
 						
-						System.err.println(p);
 					}
 
-					//n sei o que È isso, by Deyv
+					//n sei o que √© isso, by Deyv
 					packet.setData(new byte[this.getBufferSize()]);
 					//envia ack
 				}
