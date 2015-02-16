@@ -46,7 +46,7 @@ public class Sender {
 			packet = new DatagramPacket(dataBytes, dataBytes.length, destinationIP, PORT);
 			this.senderDSocket.send(packet);
 			//caso queira testar o tamanho do arquivo enviado e o local, descomentar as linhas abaixo e na classe testP2P
-			//o array[] b é onde esta o arquivo, no método basta perceber que foi recebido um arquivo e salva-lo na pasta do projeto
+			//o array[] b ï¿½ onde esta o arquivo, no mï¿½todo basta perceber que foi recebido um arquivo e salva-lo na pasta do projeto
 /*			String dataString = new String(data);
 			int firstParam = dataString.indexOf("\n");
 			int secondParam = dataString.indexOf("\n", firstParam+1);

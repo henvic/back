@@ -18,46 +18,46 @@ public class BackTCP implements Back {
 	private int fileNumber;
 	private int nextSeq;
 
-	public BackTCP(UserTCP source, UserTCP destination, boolean running) throws IOException {
-		this.client = new Sender(destination, running);
+	public BackTCP(UserTCP source, UserTCP destination) throws IOException {
 
 		this.sourceUser = source;
-		this.receiver = new ReceiverTCP(destination, running);
+		this.receiver = new ReceiverTCP(destination, true);
 		this.server = new Thread(receiver);
 		this.server.start();
-
 		this.fileNumber = 0;
+		this.client = new Sender(destination, false);
 	}
 
 	@Override
 	public void sendText(String text) throws IOException {
-		// TODO Auto-generated method stub
+		send(text.getBytes(), "default");		
+	}
+
+	@Override
+	public void send(byte[] data, String fileExtension) throws IOException {	//implementação semelhante ao UDP
+		Packet p  = new Packet(this.fileNumber, fileExtension, nextSeq, 0, true, data, data.length );
+		client.send(getPacketBytes(p));
 		
 	}
 
 	@Override
-	public void send(byte[] data, String fileExtension) throws IOException {
-		// TODO Auto-generated method stub
-		
+	public byte[] getPacketBytes(Packet p) {	//implementar igual ao UDP
+		return p.toString().getBytes();
 	}
 
-	@Override
-	public byte[] getPacketBytes(Packet p) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
-	public void sendMessage(String destinationIp) {
-		// TODO Auto-generated method stub
-		
+	public void receiveACK() {	//não faz nada, já tem implementado implicitament no Socket		
 	}
 
-	@Override
-	public void receiveACK() {
-		// TODO Auto-generated method stub
-		
+	public Thread getServer() {
+		return server;
 	}
+
+	public void setServer(Thread server) {
+		this.server = server;
+	}
+
 	
 
 }

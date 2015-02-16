@@ -21,14 +21,22 @@ public class BackTP implements Back {
 	private ReceiverBTP receiver;
 	public Sender client;
 
+	public Thread getServer() {
+		return server;
+	}
+
+	public void setServer(Thread server) {
+		this.server = server;
+	}
+
 	private int fileNumber;
 	private int nextSeq;
 
-	public BackTP(UserBTP source, UserBTP destination, boolean running) throws IOException {
-		this.client = new Sender(destination, running);
+	public BackTP(UserBTP source, UserBTP destination) throws IOException {
+		this.client = new Sender(destination, true);
 
 		this.sourceUser = source;
-		this.receiver = new ReceiverBTP(destination, running);
+		this.receiver = new ReceiverBTP(destination, true);
 		this.server = new Thread(receiver);
 		this.server.start();
 
@@ -70,9 +78,7 @@ public class BackTP implements Back {
 	 * param ip: destinationIp
 	 * other param to flags (ack, openServer, connectionRequest...)
 	 */
-	public void sendMessage(String destinationIp) { // precisa?
 
-	}
 
 	/**
 	 * method: process the ack receiving

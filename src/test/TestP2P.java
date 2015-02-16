@@ -1,6 +1,9 @@
 package test;
 
 import userCenter.UserBTP;
+import userCenter.UserTCP;
+import protocol.Back;
+import protocol.BackTCP;
 import protocol.BackTP;
 import modules.User;
 
@@ -16,23 +19,38 @@ import java.util.Scanner;
  */
 public class TestP2P{
 	
-    public static void  main () {
+    public static void  main (String args[]) {
         Scanner in = new Scanner(System.in);
-		User me = new UserBTP("leo", "LocalHost");
-        User user = new UserBTP("<nome aqui>", "LocalHost"); //destino
-        
+        String tipo = in.nextLine();
+        User me = null;
+        User user = null;
+        if(tipo.equalsIgnoreCase("TCP")){
+        	me = new UserTCP("leo", "LocalHost");
+        	user = new UserTCP("<nome aqui>", "LocalHost");
+        } else {
+        	me = new UserBTP("leo", "LocalHost");
+        	user = new UserBTP("<nome aqui>", "LocalHost"); //destino
+        }
         try {
-            BackTP protocol = new BackTP((UserBTP)me, (UserBTP)user, true);
+        	Back protocol = null;
+        	if(me instanceof UserBTP){
+        		protocol = new BackTP((UserBTP)me, (UserBTP)user);
+        	} else {
+        		
+        		protocol = new BackTCP((UserTCP)me, (UserTCP)user);
+        		
+        	}
             boolean running = true;
 
             while(running){
                 System.out.println("eu aqui");
-                System.out.println(System.currentTimeMillis());
+                //System.out.println(System.currentTimeMillis());
                 String message = in.nextLine();
                 
                 if (message.equals("quit")) {
                     running = false;
-                    protocol.server.interrupt();
+                    //não sei o que fazer com a linha abaixo, favor conferir a classe back, talvez ela tenha que ser uma classe abstrata ao invés de uma interface
+                    protocol.getServer().interrupt();
                    //tentar enviar arquivo
                 } else if(message.startsWith("Arquivo:")){
                 	File arq = new File(message.substring(message.indexOf(" ")+1));
@@ -43,7 +61,9 @@ public class TestP2P{
         			//System.err.println(sendData.length);
                     protocol.send(sendData, message.substring(message.indexOf('.')+1));
                 } else {
+                    System.out.println("Você enviou: "+ message);
                     protocol.sendText(message);
+                    System.out.println("Você enviou: "+ message);
                 }
             }
         } catch (SocketException e) {
