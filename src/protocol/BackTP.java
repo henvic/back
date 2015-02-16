@@ -9,7 +9,7 @@ import java.io.IOException;
 
 import com.sun.security.ntlm.Client;
 
-public class BackTP {
+public class BackTP implements Back {
 	/**
 	 * link between source user and receiver/sender class
 	 * or
@@ -61,7 +61,7 @@ public class BackTP {
 
 	}
 
-	private byte[] getPacketBytes(Packet p){
+	public byte[] getPacketBytes(Packet p){
 		return p.toString().getBytes();
 	}
 

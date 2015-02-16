@@ -14,9 +14,9 @@ import java.util.Scanner;
 /**
  * Created by leo on 01/02/2015.
  */
-public class UDP implements Runnable {
+public class TestP2P{
 	
-    public void run () {
+    public static void  main () {
         Scanner in = new Scanner(System.in);
 		User me = new UserBTP("leo", "LocalHost");
         User user = new UserBTP("<nome aqui>", "LocalHost"); //destino
