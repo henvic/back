@@ -57,7 +57,6 @@ public class BackTP implements Back {
 			Packet p = new Packet(this.fileNumber, fileExtension, nextSeq, i*tam, false, dados, data.length);
 			client.send(getPacketBytes(p));
 			nextSeq += 1;
-//			System.out.println(nextSeq);
 		}
 		byte[] dados = new byte[tam];
 		int fim = data.length%tam;

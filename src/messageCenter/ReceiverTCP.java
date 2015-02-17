@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.*;
 
+import protocol.Packet;
+
 /**
  * Created by leo on 28/01/2015.
  */
@@ -47,5 +49,22 @@ public class ReceiverTCP extends Receiver implements Runnable {
 			}
 
 		}
+	}
+	public Packet receivePacket (String dataString) {
+
+		int firstParam = dataString.indexOf("\n");
+
+		int secondParam = dataString.indexOf("\n", firstParam+1);
+
+		int thirdParam = dataString.indexOf("\n", secondParam+1);
+
+		int param4 = dataString.indexOf("\n", thirdParam+1);
+
+		int param5 = dataString.indexOf("\n", param4+1);
+
+		int param6 = dataString.indexOf("\n", param5+1 );
+
+		return new Packet(Integer.parseInt(dataString.substring(0, firstParam)), dataString.substring(firstParam + 1, secondParam), Integer.parseInt(dataString.substring(secondParam + 1, thirdParam)), Integer.parseInt(dataString.substring(thirdParam+1, param4)), Boolean.parseBoolean(dataString.substring(param4 + 1, param5)), dataString.substring(param6+1).getBytes(), Integer.parseInt(dataString.substring(param5 + 1, param6)));
+
 	}
 }

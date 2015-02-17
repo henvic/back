@@ -1,6 +1,8 @@
 package protocol;
 import java.io.Serializable;
 
+import sun.security.util.Length;
+
 
 public class Packet implements Serializable {
 	private String fileName;
@@ -102,7 +104,34 @@ public class Packet implements Serializable {
 	}
 
 	public String toString(){
-		return fileNumber + "\n" + fileType + "\n" + id + "\n" + offset + "\n" + finalPart + "\n" + dataLength + "\n" + new String(data);
+		String number = ""+this.fileNumber;
+		String type = this.fileType;
+		String id = ""+this.id;
+		String offset = ""+this.offset;
+		String finalPart = "";
+		String dataLength = ""+this.dataLength;
+		while(number.length() != 8){
+			number = "0" + number;
+		}
+		while(type.length() != 8){
+			type += ".";
+		}
+		while(id.length() != 8){
+			id = "0" + id;
+		}
+		while(offset.length() != 8){
+			offset = "0" + offset;
+		}
+		while(dataLength.length() != 8){
+			dataLength = "0" + dataLength;
+		}
+		if(this.finalPart) {
+			finalPart += "0";
+		} else {
+			finalPart += "1";
+		}
+		
+		return number + "\n" + type + "\n" + id + "\n" + offset + "\n" + finalPart + "\n" + dataLength + "\n" + new String(data);
 	}
 
 	public int getDataLength() {
