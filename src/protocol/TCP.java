@@ -12,7 +12,6 @@ public class TCP implements Back {
 	
 	public UserTCP sourceUser;
 	public Thread server;
-	private ReceiverTCP receiver;
 	public Sender client;
 
 	private int fileNumber;
@@ -21,11 +20,12 @@ public class TCP implements Back {
 	public TCP(UserTCP source, UserTCP destination) throws IOException {
 
 		this.sourceUser = source;
-		this.receiver = new ReceiverTCP(destination, true);
-		this.server = new Thread(receiver);
-		this.server.start();
 		this.fileNumber = 0;
-		this.client = new Sender(destination, false);
+
+		//this.client = new Sender(destination, false);
+
+		this.server = new Thread(new ReceiverTCP(destination, true));
+		this.server.start();
 	}
 
 	@Override

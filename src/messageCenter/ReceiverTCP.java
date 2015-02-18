@@ -27,9 +27,10 @@ public class ReceiverTCP extends Receiver implements Runnable {
 			try {
 
 				BufferedReader tcpBuffer = null;
-
+				System.out.println("cria buffer tcp igual a null");
 				if(this.isRunning()) {
 					//TCP buffer + receive
+					System.out.println("tenta criar buffer tcp para receber arquivos");
 					tcpBuffer = new BufferedReader(new InputStreamReader(receiverSocket.getInputStream()));
 					System.out.println(this.getDestination().getIp() + " falou: " + tcpBuffer.readLine());
 				}
