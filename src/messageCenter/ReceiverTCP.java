@@ -13,12 +13,12 @@ import protocol.Packet;
 public class ReceiverTCP extends Receiver implements Runnable {
 
 	private Socket receiverSocket;
-
+	private ServerSocket welcome;
 	private BufferedReader tcpBuffer;
 
 	public ReceiverTCP(User destination, boolean running) throws IOException {
 		super(destination, running);
-		ServerSocket welcome = new ServerSocket(this.getPORT());
+		welcome = new ServerSocket(this.getPORT());
 		receiverSocket = welcome.accept();
 		tcpBuffer = new BufferedReader(new InputStreamReader(receiverSocket.getInputStream()));
 
