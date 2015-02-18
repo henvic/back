@@ -3,7 +3,7 @@ package test;
 import userCenter.UserBTP;
 import userCenter.UserTCP;
 import protocol.Back;
-import protocol.BackTCP;
+import protocol.TCP;
 import protocol.BackTP;
 import modules.User;
 
@@ -23,7 +23,7 @@ public class TestP2P{
         User user = null;
         if(tipo.equalsIgnoreCase("TCP")){
         	me = new UserTCP("leo", "172.22.46.112");
-        	user = new UserTCP("<nome aqui>", "172.22.46.18");
+        	user = new UserTCP("<nome aqui>", "172.22.46.112");
         } else {
         	me = new UserBTP("leo", "LocalHost");
         	user = new UserBTP("<nome aqui>", "LocalHost"); //destino
@@ -34,7 +34,7 @@ public class TestP2P{
         		protocol = new BackTP((UserBTP)me, (UserBTP)user);
         	} else {
         		
-        		protocol = new BackTCP((UserTCP)me, (UserTCP)user);
+        		protocol = new TCP((UserTCP)me, (UserTCP)user);
         		
         	}
             boolean running = true;

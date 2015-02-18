@@ -26,7 +26,6 @@ public class ReceiverTCP extends Receiver implements Runnable {
 		try {
 			this.receiverSocket = welcome.accept();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		while (true) {
@@ -38,7 +37,7 @@ public class ReceiverTCP extends Receiver implements Runnable {
 					System.out.println(2);
 					//TCP buffer + receive
 					tcpBuffer = new BufferedReader(new InputStreamReader(receiverSocket.getInputStream()));
-					System.out.println(this.getDestination().getIp() + " falou: " + new String(tcpBuffer.readLine()));
+					System.out.println(this.getDestination().getIp() + " falou: " + tcpBuffer.readLine());
 				}
 
 			} catch (IOException e) {

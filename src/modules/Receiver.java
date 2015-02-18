@@ -22,7 +22,7 @@ public abstract class Receiver {
 	}
 
 	public int getBufferSize() {
-		return BUFFER_SIZE-300;
+		return BUFFER_SIZE-47;
 	}
 
 	public User getDestination() {

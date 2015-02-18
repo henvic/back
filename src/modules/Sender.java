@@ -35,6 +35,7 @@ public class Sender {
 			this.senderSocket = new Socket(destinationIP, PORT);
 			DataOutputStream outputStream = new DataOutputStream(this.senderSocket.getOutputStream());
 			outputStream.write(data);
+			System.out.print("chegou - sender");
 		} else {
 			byte[] dataBytes = data;
 			DatagramPacket packet;
