@@ -14,9 +14,6 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
-/**
- * Created by leo on 01/02/2015.
- */
 public class TestP2P{
 	
     public static void  main (String args[]) {

@@ -10,9 +10,6 @@ import java.net.*;
 
 import protocol.Packet;
 
-/**
- * Created by leo on 28/01/2015.
- */
 public class ReceiverTCP extends Receiver implements Runnable {
 
 	private Socket receiverSocket;

@@ -7,11 +7,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.*;
 
-import com.sun.xml.internal.ws.api.message.Packet;
-
-/**
- * Created by leo on 28/01/2015.
- */
 public class Sender {
 
     private User destination;

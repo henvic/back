@@ -7,8 +7,6 @@ import userCenter.UserBTP;
 
 import java.io.IOException;
 
-import com.sun.security.ntlm.Client;
-
 public class BackTP implements Back {
 	/**
 	 * link between source user and receiver/sender class

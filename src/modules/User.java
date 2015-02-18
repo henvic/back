@@ -1,9 +1,5 @@
 package modules;
 
-/**
- * Created by leo on 11/02/2015.
- * ljsa at cin.ufpe.br
- */
 public abstract class User {
 
 	private String username;

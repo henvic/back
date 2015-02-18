@@ -7,9 +7,6 @@ import protocol.Packet;
 import java.io.*;
 import java.net.*;
 
-/**
- * Created by leo on 28/01/2015.
- */
 public class ReceiverBTP extends Receiver implements Runnable {
 	private DatagramSocket receiverSocket;
 	public static byte[] arquivo;

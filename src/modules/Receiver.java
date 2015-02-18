@@ -4,10 +4,6 @@ import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.ServerSocket;
 
-/**
- * Created by leo on 11/02/2015.
- * ljsa at cin.ufpe.br
- */
 public abstract class Receiver {
 
 	private boolean running;

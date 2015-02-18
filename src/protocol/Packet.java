@@ -1,9 +1,6 @@
 package protocol;
 import java.io.Serializable;
 
-import sun.security.util.Length;
-
-
 public class Packet implements Serializable {
 	private String fileName;
 	private int fileNumber;
@@ -150,5 +147,4 @@ public class Packet implements Serializable {
 		for(int i = 0; i < this.data.length; i++) retorno[i+aux.length] = this.data[i];
 		return retorno;
 	}
-
 }
