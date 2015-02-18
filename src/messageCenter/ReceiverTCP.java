@@ -13,28 +13,22 @@ import protocol.Packet;
 public class ReceiverTCP extends Receiver implements Runnable {
 
 	private Socket receiverSocket;
-	private ServerSocket welcome;
+
 	public ReceiverTCP(User destination, boolean running) throws IOException {
 		super(destination, running);
-		this.welcome = new ServerSocket(this.getPORT());
-		
+		ServerSocket welcome = new ServerSocket(this.getPORT());
+		welcome.accept();
 
 	}
 
 	public void run() {
 		
-		try {
-			this.receiverSocket = welcome.accept();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
 		while (true) {
 			try {
 
 				BufferedReader tcpBuffer = null;
-				System.out.println(1);
+
 				if(this.isRunning()) {
-					System.out.println(2);
 					//TCP buffer + receive
 					tcpBuffer = new BufferedReader(new InputStreamReader(receiverSocket.getInputStream()));
 					System.out.println(this.getDestination().getIp() + " falou: " + tcpBuffer.readLine());
