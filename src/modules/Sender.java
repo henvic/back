@@ -32,7 +32,6 @@ public class Sender {
     public void send(byte[] data) throws IOException {
 		if (!tcp) {
 
-			this.senderSocket = new Socket(destinationIP, PORT);
 			DataOutputStream outputStream = new DataOutputStream(this.senderSocket.getOutputStream());
 			outputStream.write(data);
 			System.out.print("chegou - sender");
