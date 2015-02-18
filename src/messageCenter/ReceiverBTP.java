@@ -81,26 +81,41 @@ public class ReceiverBTP extends Receiver implements Runnable {
 	public Packet receivePacket (byte[] data) {
 		String dataString = new String(data);
 		
-		int firstParam = dataString.indexOf("\n");
-		int secondParam = dataString.indexOf("\n", firstParam+1);
-		int thirdParam = dataString.indexOf("\n", secondParam+1);
-		int param4 = dataString.indexOf("\n", thirdParam+1);
-		int param5 = dataString.indexOf("\n", param4+1);
-		int param6 = dataString.indexOf("\n", param5+1 );
-		return new Packet(Integer.parseInt(dataString.substring(0, firstParam)), dataString.substring(firstParam + 1, secondParam), Integer.parseInt(dataString.substring(secondParam + 1, thirdParam)), Integer.parseInt(dataString.substring(thirdParam+1, param4)), Boolean.parseBoolean(dataString.substring(param4 + 1, param5)), dataString.substring(param6+1).getBytes(), Integer.parseInt(dataString.substring(param5 + 1, param6)));
+		int fileNumber = dataString.indexOf("\n");
+		int fileType = dataString.indexOf("\n", fileNumber+1);
+		int id = dataString.indexOf("\n", fileType+1);
+		int offset = dataString.indexOf("\n", id+1);
+		int isFinal = dataString.indexOf("\n", offset+1);
+		int length = dataString.indexOf("\n", isFinal+1);
+
+		return new Packet(Integer.parseInt(dataString.substring(0, fileNumber)),
+            dataString.substring(fileNumber + 1, fileType),
+            Integer.parseInt(dataString.substring(fileType + 1, id)),
+            Integer.parseInt(dataString.substring(id+1, offset)),
+            Boolean.parseBoolean(dataString.substring(offset + 1, isFinal)),
+            dataString.substring(length+1).getBytes(),
+            Integer.parseInt(dataString.substring(isFinal + 1, length))
+        );
 
 	}
 	public Packet receivePacket (byte[] data, int dataFinal) {
 		System.err.println(data.length + ":p");
 		String dataString = new String(data);
 		System.out.println(dataString.length());
-		int firstParam = dataString.indexOf("\n");
-		int secondParam = dataString.indexOf("\n", firstParam+1);
-		int thirdParam = dataString.indexOf("\n", secondParam+1);
-		int param4 = dataString.indexOf("\n", thirdParam+1);
-		int param5 = dataString.indexOf("\n", param4+1);
-		int param6 = dataString.indexOf("\n", param5+1 );
-		return new Packet(Integer.parseInt(dataString.substring(0, firstParam)), dataString.substring(firstParam + 1, secondParam), Integer.parseInt(dataString.substring(secondParam + 1, thirdParam)), Integer.parseInt(dataString.substring(thirdParam+1, param4)), Boolean.parseBoolean(dataString.substring(param4 + 1, param5)), dataString.substring(param6+1, dataFinal+param6+3).getBytes(), Integer.parseInt(dataString.substring(param5 + 1, param6)));
+		int fileNumber = dataString.indexOf("\n");
+		int fileType = dataString.indexOf("\n", fileNumber+1);
+		int id = dataString.indexOf("\n", fileType+1);
+		int offset = dataString.indexOf("\n", id+1);
+		int isFinal = dataString.indexOf("\n", offset+1);
+		int length = dataString.indexOf("\n", isFinal+1);
+
+		return new Packet(Integer.parseInt(dataString.substring(0, fileNumber)),
+            dataString.substring(fileNumber + 1, fileType),
+            Integer.parseInt(dataString.substring(fileType + 1, id)),
+            Integer.parseInt(dataString.substring(id+1, offset)),
+            Boolean.parseBoolean(dataString.substring(offset + 1, isFinal)),
+            dataString.substring(length+1, dataFinal+length+3).getBytes(),
+            Integer.parseInt(dataString.substring(isFinal + 1, length)));
 
 	}
 	
