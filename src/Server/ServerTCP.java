@@ -9,7 +9,7 @@ public class ServerTCP extends Servidor {
 	Vector<Socket> users;
 
 	public ServerTCP() {
-		this.users = null;
+		this.users = new Vector<Socket>();
 		
 	}
 
