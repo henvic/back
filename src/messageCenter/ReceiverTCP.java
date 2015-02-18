@@ -14,10 +14,13 @@ public class ReceiverTCP extends Receiver implements Runnable {
 
 	private Socket receiverSocket;
 
+	private BufferedReader tcpBuffer;
+
 	public ReceiverTCP(User destination, boolean running) throws IOException {
 		super(destination, running);
 		ServerSocket welcome = new ServerSocket(this.getPORT());
-		welcome.accept();
+		receiverSocket = welcome.accept();
+		tcpBuffer = new BufferedReader(new InputStreamReader(receiverSocket.getInputStream()));
 
 	}
 
@@ -26,13 +29,10 @@ public class ReceiverTCP extends Receiver implements Runnable {
 		while (true) {
 			try {
 
-				BufferedReader tcpBuffer = null;
-				System.out.println("cria buffer tcp igual a null");
 				if(this.isRunning()) {
 					//TCP buffer + receive
-					System.out.println("tenta criar buffer tcp para receber arquivos");
-					tcpBuffer = new BufferedReader(new InputStreamReader(receiverSocket.getInputStream()));
 					System.out.println(this.getDestination().getIp() + " falou: " + tcpBuffer.readLine());
+					tcpBuffer = new BufferedReader(new InputStreamReader(receiverSocket.getInputStream()));
 				}
 
 			} catch (IOException e) {
