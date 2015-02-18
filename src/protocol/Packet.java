@@ -11,6 +11,8 @@ public class Packet implements Serializable {
 	private int dataLength;
 	private byte[] data;
 
+    public final static int HEADER_SIZE = 47;
+
 	public Packet(int fileNumber, String fileType, int id, byte[] data){
 		this.fileName = "backChat-file" + fileNumber;
 		this.fileNumber = fileNumber;
@@ -140,7 +142,7 @@ public class Packet implements Serializable {
 	}
 
 	public byte[] getBytes() {
-		byte[] aux = this.toString().substring(0, 47).getBytes();
+		byte[] aux = this.toString().substring(0, HEADER_SIZE).getBytes();
 		
 		byte[] retorno = new byte[aux.length + this.data.length];
 		for(int i = 0; i < aux.length; i++) retorno[i] = aux[i];

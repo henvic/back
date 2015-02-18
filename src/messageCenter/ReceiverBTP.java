@@ -23,7 +23,7 @@ public class ReceiverBTP extends Receiver implements Runnable {
 		
 		while (true) {
 			//UDP buffer
-			byte[] udpBuffer = new byte[this.getBufferSize()+47];
+			byte[] udpBuffer = new byte[this.getBufferSize() + Packet.HEADER_SIZE];
 			DatagramPacket packet = new DatagramPacket(udpBuffer, udpBuffer.length);
 
 			try {
@@ -119,15 +119,15 @@ public class ReceiverBTP extends Receiver implements Runnable {
 	public byte[] getBytes(byte[] data, int dataFinal){
 		byte[] retorno = new byte[dataFinal];
 		for(int i = 0; i < dataFinal; i++){
-			retorno[i] = data[i+47];
+			retorno[i] = data[i+ Packet.HEADER_SIZE];
 		}
 		return retorno;
 	}
 	
 	public byte[] getBytes(byte[] data){
-		byte[] retorno = new byte[data.length-47];
-		for(int i = 0; i < data.length-47; i++){
-			retorno[i] = data[i+47];
+		byte[] retorno = new byte[data.length - Packet.HEADER_SIZE];
+		for(int i = 0; i < data.length - Packet.HEADER_SIZE; i++){
+			retorno[i] = data[i + Packet.HEADER_SIZE];
 		}
 		return retorno;
 	}
