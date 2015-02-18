@@ -20,12 +20,11 @@ public class ServerTCP extends Servidor {
 
 	@Override
 	public void addUser(User user) {
-		
 	}
 
 	@Override
 	public void removeUser(User user) {
-		
+		users.remove(user);
 	}
 
 }
