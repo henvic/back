@@ -35,7 +35,7 @@ public class ReceiverBTP extends Receiver implements Runnable {
 					this.receiverSocket.receive(packet);
 					Packet p = receivePacket(packet.getData());
 					if(p.getFileType().equals("default.")){
-						System.err.println(this.getDestination().getIp() + " falou: " + new String( p.getData()));
+						System.err.println(this.getDestination().getIp() + " falou: " + new String( getBytes(packet.getData(), p.getDataLength())));
 
 					} else {
 						//trocar o "Padrão." por um nome padrão incremental para arquivos recebidos

@@ -25,8 +25,8 @@ public class TestP2P{
         User me = null;
         User user = null;
         if(tipo.equalsIgnoreCase("TCP")){
-        	me = new UserTCP("leo", "LocalHost");
-        	user = new UserTCP("<nome aqui>", "LocalHost");
+        	me = new UserTCP("leo", "172.22.46.112");
+        	user = new UserTCP("<nome aqui>", "172.22.46.18");
         } else {
         	me = new UserBTP("leo", "LocalHost");
         	user = new UserBTP("<nome aqui>", "LocalHost"); //destino

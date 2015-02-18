@@ -67,9 +67,11 @@ public class BackTP implements Back {
 		nextSeq += 1;
 
 	}
+	
+	
 
 	public byte[] getPacketBytes(Packet p){
-		return p.toString().getBytes();
+		return p.getBytes();
 	}
 
 	/**

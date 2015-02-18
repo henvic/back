@@ -142,4 +142,13 @@ public class Packet implements Serializable {
 		this.dataLength = dataLength;
 	}
 
+	public byte[] getBytes() {
+		byte[] aux = this.toString().substring(0, 47).getBytes();
+		
+		byte[] retorno = new byte[aux.length + this.data.length];
+		for(int i = 0; i < aux.length; i++) retorno[i] = aux[i];
+		for(int i = 0; i < this.data.length; i++) retorno[i+aux.length] = this.data[i];
+		return retorno;
+	}
+
 }
