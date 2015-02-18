@@ -46,14 +46,20 @@ public class ReceiverBTP extends Receiver implements Runnable {
 						
 						
 						if(p.getDataLength() <= p.getOffset() + getBufferSize()){
-							p = receivePacket(packet.getData(),p.getDataLength()-p.getOffset() );
+							/*p = receivePacket(packet.getData(), p.getDataLength());
 							saidaII.write(p.getData());
 							System.out.println(p);
 							System.out.println(p.getData().length);
+							*/
+							byte[] b = getBytes(packet.getData(), p.getDataLength());
+							saidaII.write(b);
+							System.out.println(new String(b));
 							saidaII.flush();
 							saidaII.close();
 						} else {
-							saidaII.write(p.getData());
+							byte[] b = getBytes(packet.getData());
+							saidaII.write(b);
+							//saidaII.write(p.getData());
 							saidaII.flush();
 						}
 						//System.err.println(p);
@@ -76,35 +82,42 @@ public class ReceiverBTP extends Receiver implements Runnable {
 		String dataString = new String(data);
 		
 		int firstParam = dataString.indexOf("\n");
-
 		int secondParam = dataString.indexOf("\n", firstParam+1);
-
 		int thirdParam = dataString.indexOf("\n", secondParam+1);
-
 		int param4 = dataString.indexOf("\n", thirdParam+1);
-
 		int param5 = dataString.indexOf("\n", param4+1);
-
 		int param6 = dataString.indexOf("\n", param5+1 );
-
 		return new Packet(Integer.parseInt(dataString.substring(0, firstParam)), dataString.substring(firstParam + 1, secondParam), Integer.parseInt(dataString.substring(secondParam + 1, thirdParam)), Integer.parseInt(dataString.substring(thirdParam+1, param4)), Boolean.parseBoolean(dataString.substring(param4 + 1, param5)), dataString.substring(param6+1).getBytes(), Integer.parseInt(dataString.substring(param5 + 1, param6)));
 
 	}
 	public Packet receivePacket (byte[] data, int dataFinal) {
-		System.out.println(dataFinal);
+		System.err.println(data.length + ":p");
 		String dataString = new String(data);
+		System.out.println(dataString.length());
 		int firstParam = dataString.indexOf("\n");
-
 		int secondParam = dataString.indexOf("\n", firstParam+1);
-
 		int thirdParam = dataString.indexOf("\n", secondParam+1);
-
 		int param4 = dataString.indexOf("\n", thirdParam+1);
-
 		int param5 = dataString.indexOf("\n", param4+1);
-
 		int param6 = dataString.indexOf("\n", param5+1 );
 		return new Packet(Integer.parseInt(dataString.substring(0, firstParam)), dataString.substring(firstParam + 1, secondParam), Integer.parseInt(dataString.substring(secondParam + 1, thirdParam)), Integer.parseInt(dataString.substring(thirdParam+1, param4)), Boolean.parseBoolean(dataString.substring(param4 + 1, param5)), dataString.substring(param6+1, dataFinal+param6+3).getBytes(), Integer.parseInt(dataString.substring(param5 + 1, param6)));
 
 	}
+	
+	public byte[] getBytes(byte[] data, int dataFinal){
+		byte[] retorno = new byte[dataFinal];
+		for(int i = 0; i < dataFinal; i++){
+			retorno[i] = data[i+47];
+		}
+		return retorno;
+	}
+	
+	public byte[] getBytes(byte[] data){
+		byte[] retorno = new byte[data.length-47];
+		for(int i = 0; i < data.length-47; i++){
+			retorno[i] = data[i+47];
+		}
+		return retorno;
+	}
+	
 }
