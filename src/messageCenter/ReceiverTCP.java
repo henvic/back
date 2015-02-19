@@ -44,7 +44,6 @@ public class ReceiverTCP extends Receiver implements Runnable {
 					while((tamanho = tcpBuffer.available()) == 0){
 						//mantém programa parado até ter dados para serem lidos
 					}
-					System.out.println("KKKKKKKKKKKKKKKKKKKKKKKKK");
 					byte[] dados = new byte[tamanho];
 					tcpBuffer.read(dados);
 					Packet packet = receivePacket(dados);
@@ -53,10 +52,18 @@ public class ReceiverTCP extends Receiver implements Runnable {
 					} else {
 						saida = new File("downloads/" + "Padrão." + packet.getFileType().substring(0, packet.getFileType().indexOf('.')));
 						saidaII = new FileOutputStream(saida);
+						int tam = packet.getData().length;
 						saidaII.write(packet.getData());
 						saidaII.flush();
+						while((tamanho = tcpBuffer.available()) != 0){
+							dados = new byte[tamanho];
+							tcpBuffer.read(dados);
+							saidaII.write(dados);
+							saidaII.flush();
+							System.out.println("z");
+						}
 						saidaII.close();
-						
+						System.out.println("y");
 					}
 				}
 			} catch (IOException e) {
