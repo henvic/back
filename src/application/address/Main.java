@@ -13,8 +13,9 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("view\\RootLayout.fxml"));
-			AnchorPane root = loader.load();
+//			loader.setLocation(getClass().getResource("view\\RootLayout.fxml"));
+			loader.setLocation(getClass().getResource("view/IpEditDialog.fxml"));
+			AnchorPane root = (AnchorPane) loader.load();
 			
 			Scene scene = new Scene(root,400,400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

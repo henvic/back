@@ -15,7 +15,7 @@ public class IteratorUser implements Iterator<User> {
 	@Override
 	public boolean hasNext() {
 		boolean retorno = false;
-		if(index < users.size() || users.get(index) != null){
+		if(index < users.size() && users.get(index) != null){
 			retorno = true;
 		}
 		return retorno;

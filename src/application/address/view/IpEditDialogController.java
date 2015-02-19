@@ -1,5 +1,9 @@
 package application.address.view;
 
+import java.util.Observable;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -9,7 +13,11 @@ import javafx.stage.Stage;
 
 import org.controlsfx.dialog.Dialogs;
 
+import com.sun.corba.se.spi.activation.Repository;
+
 import application.address.model.User;
+import application.address.util.IteratorUser;
+import application.address.util.RepositoryUser;
 
 
 /**
@@ -17,11 +25,11 @@ import application.address.model.User;
  * 
  * @author Marco Jakob
  * */
-public class IpEditController {
+public class IpEditDialogController {
 
+	
     @FXML
     private TableView<User> userTable;
-    
     @FXML
     private TableColumn<User, String> nameColumn;
     @FXML
@@ -33,20 +41,55 @@ public class IpEditController {
     @FXML
     private TextField birthdayField;
 
+    private ObservableList<User> users; 
 
     private Stage dialogStage;
     private boolean okClicked = false;
+    private RepositoryUser usersRep;
 
     /**
      * Initializes the controller class. This method is automatically called
      * after the fxml file has been loaded.
      */
+    public IpEditDialogController(RepositoryUser usersRep) {
+		users = FXCollections.observableArrayList();
+		this.usersRep = usersRep;
+	}
     @FXML
     private void initialize() {
+    	
     	nameColumn.setCellValueFactory(cellData -> cellData.getValue().getUsername());
+    	IpColumn.setCellValueFactory(cellData -> cellData.getValue().getIp());
+    	userTable.setItems(users);
+    	userTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showUserDetails(newValue));
     }
 
-    /**
+    private Object showUserDetails(User newValue) {
+		return null;
+	}
+    
+    private void thread(){
+    	new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				while(true){
+				IteratorUser iterator = (IteratorUser) usersRep.getIterator();
+				while(iterator.hasNext()){
+					users.add(iterator.next());
+				}
+				try {
+					Thread.sleep(200);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				}
+			}
+		}).start();
+    }
+
+	/**
      * Sets the stage of this dialog.
      * 
      * @param dialogStage
