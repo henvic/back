@@ -2,6 +2,7 @@ package messageCenter;
 
 import modules.Receiver;
 import modules.User;
+import protocol.BackTP;
 import protocol.Packet;
 
 import java.io.*;
@@ -11,10 +12,12 @@ public class ReceiverBTP extends Receiver implements Runnable {
 	private DatagramSocket receiverSocket;
 	public static byte[] arquivo;
 
-	public ReceiverBTP(User destination, boolean running) throws IOException {
+	public BackTP protocol;
+
+	public ReceiverBTP(User destination, boolean running, BackTP protocol) throws IOException {
 		super(destination, running);
 		this.receiverSocket = new DatagramSocket(this.getPORT());
-
+		this.protocol = protocol;
 	}
 
 	public void run() {
@@ -30,10 +33,16 @@ public class ReceiverBTP extends Receiver implements Runnable {
 				if(this.isRunning()) {
 					//UDP receive
 					this.receiverSocket.receive(packet);
-					Packet p = receivePacket(packet.getData());
-					if(p.getFileType().equals("default.")){
-						System.err.println(this.getDestination().getIp() + " falou: " + new String( getBytes(packet.getData(), p.getDataLength())));
 
+					//cria pacote
+					Packet p = receivePacket(packet.getData());
+
+					if (p.getFileType().equals("default.")) {
+						//dataLength = tamanho real dos dados
+						System.err.println(this.getDestination().getIp() + " falou: " + new String(getBytes(packet.getData(), p.getDataLength())));
+
+					} else if (p.getFileType().equals("........")){
+						protocol.receive(p.getData());
 					} else {
 						//trocar o "Padrão." por um nome padrão incremental para arquivos recebidos
 						if(p.getOffset() == 0 &&  !p.getFileType().equals("default.")){
@@ -42,13 +51,17 @@ public class ReceiverBTP extends Receiver implements Runnable {
 						}
 						
 						
-						if(p.getDataLength() <= p.getOffset() + getBufferSize()){
+						if(p.getDataLength() < p.getOffset() + getBufferSize()){
+							//dataLength = tamanho real dos dados
 							byte[] b = getBytes(packet.getData(), p.getDataLength());
+
 							saidaII.write(b);
 							System.out.println(new String(b));
 							saidaII.flush();
 							saidaII.close();
 						} else {
+							//dataLength = tamanho do arquivo
+							//tamanho do data = tamanho do buffer
 							byte[] b = getBytes(packet.getData());
 							saidaII.write(b);
 							saidaII.flush();
@@ -56,7 +69,7 @@ public class ReceiverBTP extends Receiver implements Runnable {
 						
 					}
 
-					//n sei o que é isso, by Deyv
+					//reseta buffer BTP
 					packet.setData(new byte[this.getBufferSize()]);
 					//envia ack
 				}
@@ -83,7 +96,7 @@ public class ReceiverBTP extends Receiver implements Runnable {
             Integer.parseInt(dataString.substring(fileType + 1, id)),
             Integer.parseInt(dataString.substring(id+1, offset)),
             Boolean.parseBoolean(dataString.substring(offset + 1, isFinal)),
-            dataString.substring(length+1).getBytes(),
+            dataString.substring(length + 1).getBytes(),
             Integer.parseInt(dataString.substring(isFinal + 1, length))
         );
 

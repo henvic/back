@@ -19,8 +19,8 @@ public class TestP2P{
     public static void  main (String args[]) {
 		while (true){
 			Scanner in = new Scanner(System.in);
-			//String tipo = in.nextLine();
-			String tipo = "tcp";
+			String tipo = in.nextLine();
+			//String tipo = "tcp";
 			User me = null;
 			User user = null;
 			if(tipo.equalsIgnoreCase("TCP")){
@@ -29,7 +29,7 @@ public class TestP2P{
 				//baixa
 			} else {
 				me = new UserBTP("leo", "172.22.46.112");
-				user = new UserBTP("<nome aqui>", "172.22.46.112"); //destino
+				user = new UserBTP("<nome aqui>", "172.22.46.18"); //destino
 			}
 			try {
 				Back protocol = null;
