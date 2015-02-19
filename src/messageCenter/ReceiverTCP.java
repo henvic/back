@@ -4,8 +4,10 @@ import modules.Receiver;
 import modules.User;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.*;
@@ -53,7 +55,7 @@ public class ReceiverTCP extends Receiver implements Runnable {
 						String msg = new String(mensagem);
 						System.out.println(msg);
 					} else {
-						saida = new File("downloads/" + "Padrão." + tipo);
+					/*	saida = new File("downloads/" + "Padrão." + tipo);
 						saidaII = new FileOutputStream(saida);
 						char[] mensagem = new char[tamanho];
 						tcpBuffer.read(mensagem, 0, tamanho);
@@ -61,6 +63,14 @@ public class ReceiverTCP extends Receiver implements Runnable {
 						saidaII.write(msg);
 						saidaII.flush();
 						saidaII.close();
+					*/	BufferedWriter buf = new BufferedWriter(new FileWriter("downloads/" + "Padrão." + tipo));
+						String dados;
+						while((dados = tcpBuffer.readLine()) != null){
+							System.out.println(dados);
+							buf.write(dados);
+							buf.close();
+						}
+						
 						
 					}
 					tcpBuffer = new BufferedReader(new InputStreamReader(receiverSocket.getInputStream()));
