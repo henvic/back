@@ -2,26 +2,24 @@ package protocol;
 import java.io.Serializable;
 
 public class Packet implements Serializable {
-	private String fileName;
-	private int fileNumber;
-	private String fileType;
+	private int seqNumber;
+	private String type;
 	private int id;
 	private int offset;
 	private boolean finalPart;
-	private int dataLength;
+	private int length;
 	private byte[] data;
 
     public final static int HEADER_SIZE = 47;
 
-	public Packet(int fileNumber, String fileType, int id, int offset, boolean finalPart, byte[] data, int dataLength){
-		this.fileName = "backChat-file" + fileNumber;
-		this.fileNumber = fileNumber;
-		this.fileType = fileType;
+	public Packet(int seqNumber, String type, int id, int offset, boolean finalPart, byte[] data, int length){
+		this.seqNumber = seqNumber;
+		this.type = type;
 		this.data = data;
 		this.id = id;
 		this.offset = offset;
 		this.finalPart = finalPart;
-		this.dataLength = dataLength;
+		this.length = length;
 	}
 	
 	public boolean isFinalPart() {
@@ -40,28 +38,20 @@ public class Packet implements Serializable {
 		this.offset = offset;
 	}
 
-	public String getFileName() {
-		return fileName;
+	public int getSeqNumber() {
+		return seqNumber;
 	}
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+	public void setSeqNumber(int seqNumber) {
+		this.seqNumber = seqNumber;
 	}
 
-	public int getFileNumber() {
-		return fileNumber;
+	public String getType() {
+		return type;
 	}
 
-	public void setFileNumber(int fileNumber) {
-		this.fileNumber = fileNumber;
-	}
-
-	public String getFileType() {
-		return fileType;
-	}
-
-	public void setFileType(String fileType) {
-		this.fileType = fileType;
+	public void setType(String fileType) {
+		this.type = fileType;
 	}
 
 	public byte[] getData() {
@@ -81,12 +71,12 @@ public class Packet implements Serializable {
 	}
 
 	public String toString(){
-		String number = ""+this.fileNumber;
-		String type = this.fileType;
+		String number = ""+this.seqNumber;
+		String type = this.type;
 		String id = ""+this.id;
 		String offset = ""+this.offset;
 		String finalPart = "";
-		String dataLength = ""+this.dataLength;
+		String dataLength = ""+this.length;
 		while(number.length() != 8){
 			number = "0" + number;
 		}
@@ -112,11 +102,11 @@ public class Packet implements Serializable {
 	}
 
 	public int getDataLength() {
-		return dataLength;
+		return length;
 	}
 
 	public void setDataLength(int dataLength) {
-		this.dataLength = dataLength;
+		this.length = dataLength;
 	}
 
 	public byte[] getBytes() {

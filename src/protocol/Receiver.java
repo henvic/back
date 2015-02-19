@@ -10,7 +10,7 @@ import java.net.InetAddress;
 
 public class Receiver {
     public static void main(String args[]) throws IOException {
-        InetAddress hostAddress = InetAddress.getByName("127.0.0.1");
+        InetAddress hostAddress = InetAddress.getByName("172.22.46.18");
         Integer emulatorPort = 5001;
         Integer receiverPort = 5000;
         File writtenFile = new File("seqnum.log");

@@ -38,17 +38,17 @@ public class ReceiverBTP extends Receiver implements Runnable {
 					//cria pacote
 					Packet p = receivePacket(packet.getData());
 
-					if (p.getFileType().equals("default.")) {
+					if (p.getType().equals("default.")) {
 						//dataLength = tamanho real dos dados
 						//System.err.println(this.getDestination().getIp() + " falou: " + new String(getBytes(packet.getData(), p.getDataLength())));
 						protocol.receiveText(p);
 
-					} else if (p.getFileType().equals("........")){
+					} else if (p.getType().equals("........")){
 						protocol.receiveSignal(p.getData());
 					} else {
 						//trocar o "Padrão." por um nome padrão incremental para arquivos recebidos
-						if(p.getOffset() == 0 &&  !p.getFileType().equals("default.")){
-							saida = new File("downloads/" + "Padrão." + p.getFileType().substring(0, p.getFileType().indexOf(".")));
+						if(p.getOffset() == 0 &&  !p.getType().equals("default.")){
+							saida = new File("downloads/" + "Padrão." + p.getType().substring(0, p.getType().indexOf(".")));
 							saidaII = new FileOutputStream(saida);
 						}
 						

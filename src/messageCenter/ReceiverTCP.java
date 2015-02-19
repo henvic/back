@@ -46,10 +46,10 @@ public class ReceiverTCP extends Receiver implements Runnable {
 					byte[] dados = new byte[tamanho];
 					tcpBuffer.read(dados);
 					Packet packet = receivePacket(dados);
-					if(packet.getFileType().equals("default.")){
+					if(packet.getType().equals("default.")){
 						System.err.println( new String(packet.getData()));
 					} else {
-						saida = new File("downloads/" + "Padrão." + packet.getFileType().substring(0, packet.getFileType().indexOf('.')));
+						saida = new File("downloads/" + "Padrão." + packet.getType().substring(0, packet.getType().indexOf('.')));
 						saidaII = new FileOutputStream(saida);
 						int tam = packet.getData().length;
 						saidaII.write(packet.getData());
