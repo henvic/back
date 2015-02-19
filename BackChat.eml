@@ -3,4 +3,7 @@
 	<output-test url="file://$MODULE_DIR$/out/test/BackChat"/>
 	<exclude-output/>
 	<contentEntry url="file://$MODULE_DIR$"/>
+	<levels>
+		<level name="controlsfx-8.0.6_20" value="project"/>
+	</levels>
 </component>
