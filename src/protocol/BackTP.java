@@ -66,7 +66,15 @@ public class BackTP implements Back {
 	}
 
 	//menssagem de sinalizacao
-	public void receive(byte[] data){
+	public void receiveSignal(byte[] data){
+
+	}
+
+	public void receiveFile(Packet p) {
+		//send to other methods
+	}
+
+	public void receiveText(Packet p) {
 
 	}
 

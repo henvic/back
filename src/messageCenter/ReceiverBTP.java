@@ -39,10 +39,11 @@ public class ReceiverBTP extends Receiver implements Runnable {
 
 					if (p.getFileType().equals("default.")) {
 						//dataLength = tamanho real dos dados
-						System.err.println(this.getDestination().getIp() + " falou: " + new String(getBytes(packet.getData(), p.getDataLength())));
+						//System.err.println(this.getDestination().getIp() + " falou: " + new String(getBytes(packet.getData(), p.getDataLength())));
+						protocol.receiveText(p);
 
 					} else if (p.getFileType().equals("........")){
-						protocol.receive(p.getData());
+						protocol.receiveSignal(p.getData());
 					} else {
 						//trocar o "Padrão." por um nome padrão incremental para arquivos recebidos
 						if(p.getOffset() == 0 &&  !p.getFileType().equals("default.")){
@@ -59,6 +60,8 @@ public class ReceiverBTP extends Receiver implements Runnable {
 							System.out.println(new String(b));
 							saidaII.flush();
 							saidaII.close();
+
+							p.setData(b);
 						} else {
 							//dataLength = tamanho do arquivo
 							//tamanho do data = tamanho do buffer
@@ -66,6 +69,8 @@ public class ReceiverBTP extends Receiver implements Runnable {
 							saidaII.write(b);
 							saidaII.flush();
 						}
+
+						protocol.receiveFile(p);
 						
 					}
 
