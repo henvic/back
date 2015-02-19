@@ -22,6 +22,8 @@ public class TCP implements Back {
 
 		this.sourceUser = source;
 		this.fileNumber = 0;
+//		this.client = new Sender(destination, false);
+
 
 		
 		this.client = new Sender(destination, false);
@@ -29,7 +31,10 @@ public class TCP implements Back {
 		this.server = new Thread(receiver);
 		this.server.start();
 
+<<<<<<< HEAD
 		
+=======
+>>>>>>> 28c53f1d8e8ac65043b9e3003ae61fe91dca17b8
 	}
 
 	@Override
