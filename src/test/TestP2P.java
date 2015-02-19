@@ -19,8 +19,8 @@ public class TestP2P{
     public static void  main (String args[]) {
 		while (true){
 			Scanner in = new Scanner(System.in);
-			String tipo = in.nextLine();
-			//String tipo = "tcp";
+			//String tipo = in.nextLine();
+			String tipo = "tcp";
 			User me = null;
 			User user = null;
 			if(tipo.equalsIgnoreCase("TCP")){
