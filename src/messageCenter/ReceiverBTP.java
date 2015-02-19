@@ -43,11 +43,6 @@ public class ReceiverBTP extends Receiver implements Runnable {
 						
 						
 						if(p.getDataLength() <= p.getOffset() + getBufferSize()){
-							/*p = receivePacket(packet.getData(), p.getDataLength());
-							saidaII.write(p.getData());
-							System.out.println(p);
-							System.out.println(p.getData().length);
-							*/
 							byte[] b = getBytes(packet.getData(), p.getDataLength());
 							saidaII.write(b);
 							System.out.println(new String(b));
@@ -56,10 +51,8 @@ public class ReceiverBTP extends Receiver implements Runnable {
 						} else {
 							byte[] b = getBytes(packet.getData());
 							saidaII.write(b);
-							//saidaII.write(p.getData());
 							saidaII.flush();
 						}
-						//System.err.println(p);
 						
 					}
 
