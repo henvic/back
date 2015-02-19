@@ -1,12 +1,13 @@
 package protocol;
 
 import messageCenter.ReceiverBTP;
-import modules.Receiver;
-import modules.Sender;
-import userCenter.UserBTP;
 
 import java.io.IOException;
 import java.util.Vector;
+
+import application.address.model.Receiver;
+import application.address.model.Sender;
+import application.address.model.UserBTP;
 
 public class BackTP implements Back {
 

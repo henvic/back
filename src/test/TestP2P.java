@@ -1,11 +1,8 @@
 package test;
 
-import userCenter.UserBTP;
-import userCenter.UserTCP;
 import protocol.Back;
 import protocol.TCP;
 import protocol.BackTP;
-import modules.User;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,6 +10,10 @@ import java.io.IOException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Scanner;
+
+import application.address.model.User;
+import application.address.model.UserBTP;
+import application.address.model.UserTCP;
 
 public class TestP2P{
 	

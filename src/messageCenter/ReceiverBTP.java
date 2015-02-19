@@ -1,12 +1,13 @@
 package messageCenter;
 
-import modules.Receiver;
-import modules.User;
 import protocol.BackTP;
 import protocol.Packet;
 
 import java.io.*;
 import java.net.*;
+
+import application.address.model.Receiver;
+import application.address.model.User;
 
 public class ReceiverBTP extends Receiver implements Runnable {
 	private DatagramSocket receiverSocket;

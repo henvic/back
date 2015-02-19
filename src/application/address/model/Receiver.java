@@ -1,4 +1,4 @@
-package modules;
+package application.address.model;
 
 import java.io.IOException;
 import java.net.DatagramSocket;

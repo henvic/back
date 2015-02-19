@@ -1,18 +1,21 @@
-package modules;
+package application.address.model;
+
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public abstract class User {
 
-	private String username;
+	private StringProperty username;
 	private String status;
-	private String ip;
+	private StringProperty ip;
 
 	public User (String username, String ip) {
-		this.username = username;
+		this.username = new SimpleStringProperty(username);
 		this.status = "online";
-		this.ip = ip;
+		this.ip = new SimpleStringProperty(ip);
 	}
 
-	public void setIp(String ip) {
+	public void setIp(StringProperty ip) {
 		this.ip = ip;
 	}
 
@@ -20,11 +23,11 @@ public abstract class User {
 		this.status = status;
 	}
 
-	public void setUsername(String username) {
+	public void setUsername(StringProperty username) {
 		this.username = username;
 	}
 
-	public String getIp() {
+	public StringProperty getIp() {
 		return ip;
 	}
 
@@ -32,7 +35,7 @@ public abstract class User {
 		return status;
 	}
 
-	public String getUsername() {
+	public StringProperty getUsername() {
 		return username;
 	}
 

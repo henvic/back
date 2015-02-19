@@ -1,8 +1,5 @@
 package messageCenter;
 
-import modules.Receiver;
-import modules.User;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,6 +13,8 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
+import application.address.model.Receiver;
+import application.address.model.User;
 import protocol.Packet;
 
 public class ReceiverTCP extends Receiver implements Runnable {

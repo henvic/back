@@ -1,18 +1,16 @@
-package userCenter;
+package application.address.model;
 
-import modules.User;
+import messageCenter.ReceiverBTP;
 
 /**
- * Created by leo on 28/01/2015.
+ * Created by leo on 11/02/2015.
+ * ljsa at cin.ufpe.br
  */
-public class UserTCP extends User {
-	/**
-	 * needs Receiver and Sender attribute
-	 */
+public class UserBTP extends User {
 
-    public UserTCP (String username, String ip) {
-        super(username, ip);
-    }
+	public UserBTP (String username, String ip) {
+		super(username, ip);
+	}
 
 	@Override
 	public void login() {
@@ -58,4 +56,5 @@ public class UserTCP extends User {
 	public void receiveACK() {
 
 	}
+
 }

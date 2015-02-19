@@ -1,11 +1,12 @@
-package modules;
+package application.address.model;
 
 import messageCenter.ReceiverBTP;
-import modules.User;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.*;
+
+import application.address.model.User;
 
 public class Sender {
 
@@ -19,7 +20,7 @@ public class Sender {
 
     public Sender(User destination, boolean tcp) throws IOException {
         this.destination = destination;
-        this.destinationIP = InetAddress.getByName(destination.getIp());
+        this.destinationIP = InetAddress.getByName(destination.getIp().toString());
 		this.tcp = tcp;
 		if (!tcp) {
 			this.senderSocket = new Socket(destinationIP, PORT);

@@ -7,9 +7,9 @@
 
 <AnchorPane prefHeight="539.0" prefWidth="935.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane layoutX="-4.0" layoutY="3.0" prefHeight="533.0" prefWidth="345.0">
+      <Pane layoutX="-4.0" layoutY="3.0" prefHeight="539.0" prefWidth="935.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button layoutX="55.0" layoutY="306.0" mnemonicParsing="false" text="Button" />
+            <Button layoutX="87.0" layoutY="194.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Connect" />
             <Label layoutX="20.0" layoutY="79.0" text="Nome" />
             <Label layoutX="20.0" layoutY="139.0" text="IP" />
             <TextField layoutX="87.0" layoutY="74.0" />

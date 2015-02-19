@@ -2,11 +2,11 @@ package protocol;
 
 import java.io.IOException;
 
+import application.address.model.Sender;
+import application.address.model.UserBTP;
+import application.address.model.UserTCP;
 import messageCenter.ReceiverBTP;
 import messageCenter.ReceiverTCP;
-import modules.Sender;
-import userCenter.UserBTP;
-import userCenter.UserTCP;
 
 public class TCP implements Back {
 	
