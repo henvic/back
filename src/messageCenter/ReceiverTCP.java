@@ -40,19 +40,18 @@ public class ReceiverTCP extends Receiver implements Runnable {
 				
 				if(this.isRunning()) {
 					//TCP buffer + receivez
-					String tipo = "";
 					int  tamanho = 0;
 					while((tamanho = tcpBuffer.available()) == 0){
 						//mantém programa parado até ter dados para serem lidos
 					}
+					System.out.println("KKKKKKKKKKKKKKKKKKKKKKKKK");
 					byte[] dados = new byte[tamanho];
 					tcpBuffer.read(dados);
 					Packet packet = receivePacket(dados);
-					if(tipo.equals("default.")){
-						System.err.println(this.getDestination().getIp() + " falou: " + new String(getBytes(packet.getData(), packet.getDataLength())));
-
+					if(packet.getFileType().equals("default.")){
+						System.err.println( new String(packet.getData()));
 					} else {
-						saida = new File("downloads/" + "Padrão." + tipo);
+						saida = new File("downloads/" + "Padrão." + packet.getFileType().substring(0, packet.getFileType().indexOf('.')));
 						saidaII = new FileOutputStream(saida);
 						saidaII.write(packet.getData());
 						saidaII.flush();
@@ -106,13 +105,5 @@ public class ReceiverTCP extends Receiver implements Runnable {
             Integer.parseInt(dataString.substring(isFinal + 1, length)));
 
 	}
-	
-	public byte[] getBytes(byte[] data, int dataFinal){
-		byte[] retorno = new byte[dataFinal];
-		for(int i = 0; i < dataFinal; i++){
-			retorno[i] = data[i+ Packet.HEADER_SIZE];
-		}
-		return retorno;
-	}	
 	
 }
