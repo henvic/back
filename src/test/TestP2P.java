@@ -26,13 +26,8 @@ public class TestP2P{
 			User me = null;
 			User user = null;
 			if(tipo.equalsIgnoreCase("TCP")){
-<<<<<<< HEAD
-				me = new UserTCP("leo", "172.22.46.92");
-				user = new UserTCP("<nome aqui>", "172.22.46.112");
-=======
 				me = new UserTCP("leo", "172.22.46.18");
 				user = new UserTCP("<nome aqui>", "172.22.46.18");
->>>>>>> 28c53f1d8e8ac65043b9e3003ae61fe91dca17b8
 				//baixa
 			} else {
 				me = new UserBTP("leo", "172.22.46.92");
