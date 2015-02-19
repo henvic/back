@@ -15,7 +15,7 @@ import java.util.List;
 
 public class Sender {
     public static void main(String[] args) throws Exception {
-        InetAddress hostAddress = InetAddress.getByName("127.0.0.1");
+        InetAddress hostAddress = InetAddress.getByName("172.22.46.112");
         Integer receiverPort = 5000;
         Integer senderPort = 5001;
         File transmitFile = new File("arq.txt");
