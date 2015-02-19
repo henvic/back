@@ -22,7 +22,7 @@ public class TCP implements Back {
 		this.sourceUser = source;
 		this.fileNumber = 0;
 
-		//this.client = new Sender(destination, false);
+		this.client = new Sender(destination, false);
 
 		this.server = new Thread(new ReceiverTCP(destination, true));
 		this.server.start();

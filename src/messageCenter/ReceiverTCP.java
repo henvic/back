@@ -4,11 +4,10 @@ import modules.Receiver;
 import modules.User;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.*;
 import java.nio.ByteBuffer;
@@ -23,13 +22,13 @@ public class ReceiverTCP extends Receiver implements Runnable {
 
 	private Socket receiverSocket;
 	private ServerSocket welcome;
-	private BufferedReader tcpBuffer;
+	private InputStream tcpBuffer;
 
 	public ReceiverTCP(User destination, boolean running) throws IOException {
 		super(destination, running);
 		welcome = new ServerSocket(this.getPORT());
 		receiverSocket = welcome.accept();
-		tcpBuffer = new BufferedReader(new InputStreamReader(receiverSocket.getInputStream()));
+		tcpBuffer = receiverSocket.getInputStream();
 
 	}
 
@@ -43,37 +42,27 @@ public class ReceiverTCP extends Receiver implements Runnable {
 					//TCP buffer + receivez
 					String tipo = "";
 					int  tamanho = 0;
-					tcpBuffer.readLine();
-					tipo = tcpBuffer.readLine();
-					tcpBuffer.readLine();
-					tcpBuffer.readLine();
-					tcpBuffer.readLine();
-					tamanho = Integer.parseInt(tcpBuffer.readLine());
+					while((tamanho = tcpBuffer.available()) == 0){
+						//mantém programa parado até ter dados para serem lidos
+					}
+					byte[] dados = new byte[tamanho];
+					tcpBuffer.read(dados);
 					if(tipo.equals("default.")){
 						char[] mensagem = new char[tamanho];
-						tcpBuffer.read(mensagem, 0, tamanho);
 						String msg = new String(mensagem);
 						System.out.println(msg);
 					} else {
-					/*	saida = new File("downloads/" + "Padrão." + tipo);
+						saida = new File("downloads/" + "Padrão." + tipo);
 						saidaII = new FileOutputStream(saida);
 						char[] mensagem = new char[tamanho];
-						tcpBuffer.read(mensagem, 0, tamanho);
+						
 						byte[] msg = toBytes(mensagem);
 						saidaII.write(msg);
 						saidaII.flush();
 						saidaII.close();
-					*/	BufferedWriter buf = new BufferedWriter(new FileWriter("downloads/" + "Padrão." + tipo));
-						String dados;
-						while((dados = tcpBuffer.readLine()) != null){
-							System.out.println(dados);
-							buf.write(dados);
-							buf.close();
-						}
-						
 						
 					}
-					tcpBuffer = new BufferedReader(new InputStreamReader(receiverSocket.getInputStream()));
+					tcpBuffer = new InputStreamReader(receiverSocket.getInputStream());
 				}
 
 			} catch (IOException e) {
@@ -100,13 +89,5 @@ public class ReceiverTCP extends Receiver implements Runnable {
 
 	}
 	
-	private byte[] toBytes(char[] chars) {
-	    CharBuffer charBuffer = CharBuffer.wrap(chars);
-	    ByteBuffer byteBuffer = Charset.forName("UTF-8").encode(charBuffer);
-	    byte[] bytes = Arrays.copyOfRange(byteBuffer.array(),
-	            byteBuffer.position(), byteBuffer.limit());
-	    Arrays.fill(charBuffer.array(), '\u0000'); // clear sensitive data
-	    Arrays.fill(byteBuffer.array(), (byte) 0); // clear sensitive data
-	    return bytes;
-	}
+	
 }
