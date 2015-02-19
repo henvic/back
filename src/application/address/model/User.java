@@ -5,17 +5,17 @@ import javafx.beans.property.StringProperty;
 
 public abstract class User {
 
-	private StringProperty username;
+	private String username;
 	private String status;
-	private StringProperty ip;
+	private String ip;
 
 	public User (String username, String ip) {
-		this.username = new SimpleStringProperty(username);
+		this.username = username;
 		this.status = "online";
-		this.ip = new SimpleStringProperty(ip);
+		this.ip = ip;
 	}
 
-	public void setIp(StringProperty ip) {
+	public void setIp(String ip) {
 		this.ip = ip;
 	}
 
@@ -23,11 +23,11 @@ public abstract class User {
 		this.status = status;
 	}
 
-	public void setUsername(StringProperty username) {
+	public void setUsername(String username) {
 		this.username = username;
 	}
 
-	public StringProperty getIp() {
+	public String getIp() {
 		return ip;
 	}
 
@@ -35,7 +35,7 @@ public abstract class User {
 		return status;
 	}
 
-	public StringProperty getUsername() {
+	public String getUsername() {
 		return username;
 	}
 

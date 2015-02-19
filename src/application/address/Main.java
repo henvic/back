@@ -1,5 +1,9 @@
 package application.address;
 	
+import application.address.model.User;
+import application.address.model.UserBTP;
+import application.address.util.RepositoryUser;
+import application.address.view.IpEditDialogController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -9,14 +13,23 @@ import javafx.scene.layout.BorderPane;
 
 
 public class Main extends Application {
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 //			loader.setLocation(getClass().getResource("view\\RootLayout.fxml"));
-			loader.setLocation(getClass().getResource("view/IpEditDialog.fxml"));
+			loader.setLocation(getClass().getResource("view\\IpEditDialog.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
 			
+			RepositoryUser users = new RepositoryUser();
+			users.addUser(new UserBTP("Layon", "1"));
+			users.addUser(new UserBTP("cao", "1"));
+			users.addUser(new UserBTP("Deyv", "1"));
+			users.addUser(new UserBTP("Leo", "1"));
+			users.addUser(new UserBTP("Nada", "1"));
+			IpEditDialogController vaca = loader.getController();
+			vaca.enfiarParametro(users);
 			Scene scene = new Scene(root,400,400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);

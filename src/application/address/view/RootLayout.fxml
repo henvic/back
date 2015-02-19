@@ -9,11 +9,11 @@
    <children>
       <Pane layoutX="-4.0" layoutY="3.0" prefHeight="539.0" prefWidth="935.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button layoutX="87.0" layoutY="194.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Connect" />
+            <Button layoutX="184.0" layoutY="194.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Connect" />
             <Label layoutX="20.0" layoutY="79.0" text="Nome" />
-            <Label layoutX="20.0" layoutY="139.0" text="IP" />
-            <TextField layoutX="87.0" layoutY="74.0" />
-            <TextField layoutX="87.0" layoutY="145.0" />
+            <Label layoutX="20.0" layoutY="139.0" text="IP do Servidor" />
+            <TextField layoutX="184.0" layoutY="75.0" />
+            <TextField layoutX="184.0" layoutY="135.0" />
             <MenuBar layoutX="7.0" layoutY="8.0">
               <menus>
                 <Menu mnemonicParsing="false" text="File" />

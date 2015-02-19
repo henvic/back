@@ -3,5 +3,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/controlsfx-8.0.6_20"/>
+	<classpathentry kind="lib" path="lib/controlsfx-8.0.6_20.jar"/>
 	<classpathentry kind="output" path="out/production/BackChat"/>
 </classpath>

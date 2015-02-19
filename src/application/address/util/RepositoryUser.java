@@ -24,9 +24,14 @@ public class RepositoryUser {
 			}
 		}
 	}
-	
-	public Iterator<User> getIterator(){
-		Iterator<User> iterator = new IteratorUser(this.users);
-		return iterator;
+
+	public Vector<User> getUsers() {
+		return users;
 	}
+	
+	
+//	public Iterator<User> getIterator(){
+//		Iterator<User> iterator = new IteratorUser(this.users);
+//		return iterator;
+//	}
 }

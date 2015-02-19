@@ -1,0 +1,75 @@
+From 9e65c1f97efaca7a849629cfd813480d2279a80f Mon Sep 17 00:00:00 2001
+From: Leo Schettini <ljsa@cin.ufpe.br>
+Date: Thu, 19 Feb 2015 15:47:07 -0200
+Subject: [PATCH] nada
+
+---
+ src/protocol/GoBackN.java | 41 -----------------------------------------
+ src/protocol/Sender.java  |  2 +-
+ 2 files changed, 1 insertion(+), 42 deletions(-)
+ delete mode 100644 src/protocol/GoBackN.java
+
+diff --git a/src/protocol/GoBackN.java b/src/protocol/GoBackN.java
+deleted file mode 100644
+index d4e64ce..0000000
+--- a/src/protocol/GoBackN.java
++++ /dev/null
+@@ -1,41 +0,0 @@
+-package protocol;
+-
+-public class GoBackN {
+-    private Packet[] window;
+-    private int windowSize;
+-    private int requestNumber;
+-    private int sequenceNumber;
+-    private int sequenceBase;
+-    private int sequenceMax;
+-
+-    public GoBackN(int windowSize) {
+-        this.windowSize = windowSize;
+-        this.window = new Packet[windowSize];
+-        this.requestNumber = 0;
+-        this.sequenceBase = 0;
+-        this.sequenceMax = windowSize - 1;
+-
+-    }
+-
+-//    public void receiver(Packet packet) {
+-//        if (packet.getId() == requestNumber && packet.isValid()) {
+-//            accept(packet);
+-//            requestNumber += 1;
+-//        } else {
+-//            refuse(packet);
+-//        }
+-//
+-//        request(requestNumber);
+-//    }
+-//
+-//    public void sender(int requestNumber) {
+-//        if (requestNumber > sequenceBase) {
+-//            sequenceMax = sequenceMax + (requestNumber - sequenceBase);
+-//            sequenceBase = requestNumber;
+-//        }
+-//
+-//        if (udp.availabe()) {
+-//            udp.transmit(window[requestNumber]);
+-//        }
+-//    }
+-}
+\ No newline at end of file
+diff --git a/src/protocol/Sender.java b/src/protocol/Sender.java
+index 48a3b17..60018e6 100644
+--- a/src/protocol/Sender.java
++++ b/src/protocol/Sender.java
+@@ -15,7 +15,7 @@ import java.util.List;
+ 
+ public class Sender {
+     public static void main(String[] args) throws Exception {
+-        InetAddress hostAddress = InetAddress.getByName("127.0.0.1");
++        InetAddress hostAddress = InetAddress.getByName("172.22.46.112");
+         Integer receiverPort = 5000;
+         Integer senderPort = 5001;
+         File transmitFile = new File("arq.txt");
+-- 
+1.9.5.msysgit.0
+
