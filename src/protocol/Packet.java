@@ -13,28 +13,6 @@ public class Packet implements Serializable {
 
     public final static int HEADER_SIZE = 47;
 
-	public Packet(int fileNumber, String fileType, int id, byte[] data){
-		this.fileName = "backChat-file" + fileNumber;
-		this.fileNumber = fileNumber;
-		this.fileType = fileType;
-		this.data = data;
-		this.id = id;
-		this.offset = 0;
-		this.finalPart = true;
-		this.dataLength = data.length;
-	}
-
-	public Packet(int fileNumber, String fileType, int id, int offset, boolean finalPart, byte[] data){
-		this.fileName = "backChat-file" + fileNumber;
-		this.fileNumber = fileNumber;
-		this.fileType = fileType;
-		this.data = data;
-		this.id = id;
-		this.offset = offset;
-		this.finalPart = finalPart;
-		this.dataLength = this.data.length;
-	}
-	
 	public Packet(int fileNumber, String fileType, int id, int offset, boolean finalPart, byte[] data, int dataLength){
 		this.fileName = "backChat-file" + fileNumber;
 		this.fileNumber = fileNumber;
