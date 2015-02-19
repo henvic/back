@@ -6,35 +6,28 @@ import modules.Sender;
 import userCenter.UserBTP;
 
 import java.io.IOException;
+import java.util.Vector;
 
 public class BackTP implements Back {
-	/**
-	 * link between source user and receiver/sender class
-	 * or
-	 * one attribute: user, the user link the receiver and sender < this better
-	 */
 
+	//sender and receiver attributes
 	public UserBTP sourceUser;
 	public Thread server;
 	private ReceiverBTP receiver;
 	public Sender client;
 
+	private int fileNumber;
+	private int nextSeq;
+
 	public Thread getServer() {
 		return server;
 	}
-
-	public void setServer(Thread server) {
-		this.server = server;
-	}
-
-	private int fileNumber;
-	private int nextSeq;
 
 	public BackTP(UserBTP source, UserBTP destination) throws IOException {
 		this.client = new Sender(destination, true);
 
 		this.sourceUser = source;
-		this.receiver = new ReceiverBTP(destination, true);
+		this.receiver = new ReceiverBTP(destination, true, this);
 		this.server = new Thread(receiver);
 		this.server.start();
 
@@ -72,12 +65,10 @@ public class BackTP implements Back {
 		return p.getBytes();
 	}
 
-	/**
-	 * method: sends message
-	 * param ip: destinationIp
-	 * other param to flags (ack, openServer, connectionRequest...)
-	 */
+	//menssagem de sinalizacao
+	public void receive(byte[] data){
 
+	}
 
 	/**
 	 * method: process the ack receiving
