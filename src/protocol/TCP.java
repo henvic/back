@@ -1,4 +1,4 @@
-package protocol;
+﻿package protocol;
 
 import java.io.IOException;
 
@@ -31,10 +31,7 @@ public class TCP implements Back {
 		this.server = new Thread(receiver);
 		this.server.start();
 
-<<<<<<< HEAD
-		
-=======
->>>>>>> 28c53f1d8e8ac65043b9e3003ae61fe91dca17b8
+
 	}
 
 	@Override
