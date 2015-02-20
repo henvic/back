@@ -8,7 +8,7 @@ import application.address.util.RepositoryUser;
 public class Fachada {
 	private Servidor server;
 
-	Fachada(String protocolo) throws IOException{
+	public Fachada(String protocolo) throws IOException{
 		this.server = new Servidor(protocolo);
 	}
 	
@@ -18,6 +18,10 @@ public class Fachada {
 	
 	public void adicionarUsuario(){
 		
+	}
+
+	public Servidor getServer() {
+		return server;
 	}
 	
 //	public void

@@ -31,4 +31,10 @@ public class BusinessUser {
 	public boolean exist(String ip){
 		return users.exist(ip);		
 	}
+
+	public RepositoryUser getUsers() {
+		return users;
+	}
+	
+	
 }
