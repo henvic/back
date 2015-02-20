@@ -38,6 +38,11 @@ public class Servidor {
 	//identificacao do servidor p/ clientes (conectar)
 	private final int PORT = 50000;
 
+	public void setP2pStatus(int p2pstatus) {
+		this.p2pStatus = p2pstatus;
+	}
+
+	public int p2pStatus;
 	public Servidor(String protocolo) throws IOException {
 		
 		this.port = 8080;
@@ -47,6 +52,8 @@ public class Servidor {
 		this.running = true;
 		this.receiverSocket = new DatagramSocket(PORT);
 		this.receiver = new ReceiverBTP(true, null, null, null);
+
+		this.p2pStatus = 0;
 
 		if(protocolo.equalsIgnoreCase("tcp")){
 			//icializar o receiver TCP
@@ -113,10 +120,20 @@ public class Servidor {
 		
 	}
 	
-	public void conectarP2P(User source, User destination){
+	public void conectarP2P(User source, User destination) throws IOException {
 		//envia destination requisicao
+		BackTP serverTo2 = new BackTP (new UserBTP("server", InetAddress.getLocalHost().getHostName()), (UserBTP) destination);
+		serverTo2.send(source.getIp().getBytes(),"p2p....."); //envia ip do user1 pro user2
 		//espera resposta
+		while (p2pStatus == 0) {
+
+		}
+
 		//se positiva manda source iniciar conexao
+		if(p2pStatus == 1) {
+			BackTP serverTo1 = new BackTP (new UserBTP("server", InetAddress.getLocalHost().getHostName()), (UserBTP) source);
+			serverTo1.send(destination.getIp().getBytes(),"p2popen."); //envia ip do user2 pro user1
+		}
 	}
 	
 	public void setStatus(String onOrOff){

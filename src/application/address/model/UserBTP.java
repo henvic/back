@@ -2,10 +2,6 @@ package application.address.model;
 
 import messageCenter.ReceiverBTP;
 
-/**
- * Created by leo on 11/02/2015.
- * ljsa at cin.ufpe.br
- */
 public class UserBTP extends User {
 
 	public UserBTP (String username, String ip) {
