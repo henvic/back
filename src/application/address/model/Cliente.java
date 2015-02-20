@@ -37,6 +37,8 @@ public class Cliente {
 			this.port = Integer.parseInt(port);
 
 			protocolBTP = new BackTP((UserBTP) me, new UserBTP ("server", serverIp), new DatagramSocket(this.port));
+
+			protocolBTP.send("".getBytes(), "list....");//pede lista de usuario
 		}
 	}
 
