@@ -12,7 +12,7 @@ public class BusinessUser {
 	
 	public void addUser(User user){
 		if(!exist(user.getIp())){
-			users.addUser(user);
+			users.add(user);
 		}
 	}
 	
@@ -20,7 +20,7 @@ public class BusinessUser {
 		if(!exist(ip)){
 			throw new NullPointerException("Cliente não existente");
 		}else{			
-			users.removeUser(ip);
+			users.remover(ip);
 		}
 	}
 	
