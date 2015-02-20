@@ -21,12 +21,14 @@ public class Servidor {
 	private int port;
 	private InetAddress serverIp;
 
-	//thread
+	//global threads
 	private boolean running;
+
+	//thread
 	private DatagramSocket receiverSocket;
 	private ReceiverBTP receiver;
 
-	//thread garçom
+	//array de threads
 	private LinkedList<BeckSocket> becks;
 
 	//identificacao do servidor p/ clientes (conectar)
@@ -86,30 +88,18 @@ public class Servidor {
 				}
 			}).start();
 
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					while (true) {
-						boolean run = true;
-
-						if(becks.)
-						while (run && running){
-
-
-							run = false;
-						}
-					}
-				}
-			}).start();
 		}
 	}
 	
 	public void conectarAoServidor(User user, int port) {
 		controlUsers.addUser(user);
 		try {
-			BeckSocket beck = new BeckSocket(port, user.getIp());
+			BeckSocket beck = new BeckSocket(port, user, this);
 			//adiciona beck no vetor
+			becks.addLast(beck);
 		} catch (SocketException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 

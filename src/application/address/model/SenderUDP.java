@@ -4,14 +4,15 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
 
 public class SenderUDP extends Sender {
 	private DatagramSocket senderDSocket;
 
-	public SenderUDP(User destination) throws IOException {
+	public SenderUDP(User destination, DatagramSocket datagram) throws IOException {
 		super(destination);
 		// TODO Auto-generated constructor stub
-		this.senderDSocket = new DatagramSocket();
+		this.senderDSocket = datagram;
 
 	}
 

@@ -8,6 +8,7 @@ import java.net.*;
 
 import application.address.model.Receiver;
 import application.address.model.User;
+import application.address.model.UserBTP;
 
 public class ReceiverBTP extends Receiver implements Runnable {
 	private DatagramSocket receiverSocket;
@@ -15,12 +16,14 @@ public class ReceiverBTP extends Receiver implements Runnable {
 	private BackTP protocol;
 	private int ACK;
 	private final int MOD = 1000;
+	UserBTP destination;
 
-	public ReceiverBTP(boolean running, BackTP protocol) throws IOException {
+	public ReceiverBTP(boolean running, BackTP protocol, DatagramSocket datagram, UserBTP destination) throws IOException {
 		super(running);
-		this.receiverSocket = new DatagramSocket(this.getPORT());
+		this.receiverSocket = datagram;
 		this.protocol = protocol;
 		this.ACK = 0;
+		this.destination = destination;
 	}
 
 	public void run() {
@@ -36,7 +39,6 @@ public class ReceiverBTP extends Receiver implements Runnable {
 				if(this.isRunning()) {
 					//UDP receive
 					this.receiverSocket.receive(packet);
-
 					//cria pacote
 					Packet p = receivePacket(packet.getData());
 
@@ -87,9 +89,10 @@ public class ReceiverBTP extends Receiver implements Runnable {
 
 						//reseta buffer BTP
 						packet.setData(new byte[this.getBufferSize()]);
+						System.out.println(this.getBufferSize());
 					} 
 					Packet ack = new Packet(ACK);
-					receiverSocket.send(new DatagramPacket(ack.getBytes(), this.getBufferSize()));
+					receiverSocket.send(new DatagramPacket(ack.getBytes(), ack.getBytes().length, InetAddress.getByName(destination.getIp()), receiverSocket.getLocalPort()));
 				}
 
 			} catch (IOException e) {
