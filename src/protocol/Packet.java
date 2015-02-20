@@ -2,20 +2,18 @@ package protocol;
 import java.io.Serializable;
 
 public class Packet implements Serializable {
-	private int seqNumber; // sequenceNumber on GBNPacket
-	private String type; // type on GBNPacket ("ack", "datapckt" - data_packet, "eot" - end_of_transmission)
+	private int seqNumber;
+	private String type;
 	private int id;
 	private int offset;
 	private boolean finalPart;
 	private int length;
-	private byte[] data; // data on GBNPacket
+	private byte[] data;
 
     public final static int HEADER_SIZE = 47;
-	public static final int SEQUENCE_MOD = 32; // GBNPacket
-	public static final int PACKET_LENGTH = 512; // GBNPacket
 
 	public Packet(int seqNumber, String type, int id, int offset, boolean finalPart, byte[] data, int length){
-		this.seqNumber = seqNumber % SEQUENCE_MOD;
+		this.seqNumber = seqNumber;
 		this.type = type;
 		this.data = data;
 		this.id = id;
@@ -24,27 +22,6 @@ public class Packet implements Serializable {
 		this.length = length;
 	}
 	
-	public Packet(int ACK) {
-		this.seqNumber = ACK;
-		this.type = "ACK";
-		this.data = new byte[]{1};
-		this.id = 0;
-		this.offset = 0;
-		this.finalPart = true;
-		this.length = 0;
-		
-	}
-
-	public Packet (String port) {
-		this.data = port.getBytes();
-		this.type = "shake";
-		this.data = new byte[]{1};
-		this.id = 0;
-		this.offset = 0;
-		this.finalPart = true;
-		this.length = this.data.length;
-	}
-
 	public boolean isFinalPart() {
 		return finalPart;
 	}
@@ -134,6 +111,7 @@ public class Packet implements Serializable {
 
 	public byte[] getBytes() {
 		byte[] aux = this.toString().substring(0, HEADER_SIZE).getBytes();
+		
 		byte[] retorno = new byte[aux.length + this.data.length];
 		for(int i = 0; i < aux.length; i++) retorno[i] = aux[i];
 		for(int i = 0; i < this.data.length; i++) retorno[i+aux.length] = this.data[i];
