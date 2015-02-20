@@ -24,6 +24,10 @@ public class BackTP implements Back {
 	public UserBTP sourceUser;
 	public Thread server;
 	private ReceiverBTP receiver;
+	public ReceiverBTP getReceiver() {
+		return receiver;
+	}
+
 	public SenderUDP client;
 	public int ackPosition;
 	public final int WINDOW = 8;
@@ -33,14 +37,14 @@ public class BackTP implements Back {
 	private int fileNumber; //packet id
 	private int nextSeq;	//next sequence number
 	private DatagramSocket datagram;
-	private final int SUCCESS_RATE = 50;
+	private final int SUCCESS_RATE = 0;
 	private long timeStart;
 	public Thread getServer() {
 		return server;
 	}
 
 	public BackTP(UserBTP source, UserBTP destination) throws IOException {
-		
+
 		this.datagram = new DatagramSocket(PORT);
 		this.ackPosition = 0;
 		this.client = new SenderUDP(destination, datagram);
@@ -51,7 +55,22 @@ public class BackTP implements Back {
 
 		this.fileNumber = 0;
 		this.nextSeq = 0;
-		this.buffer = new Packet[WINDOW] ;
+		this.buffer = new Packet[WINDOW];
+	}
+
+	public BackTP(UserBTP source, UserBTP destination, DatagramSocket ds) throws IOException {
+
+		this.datagram = ds;
+		this.ackPosition = 0;
+		this.client = new SenderUDP(destination, datagram);
+		this.sourceUser = source;
+		this.receiver = new ReceiverBTP(true, this, datagram, destination);
+		this.server = new Thread(receiver);
+		this.server.start();
+
+		this.fileNumber = 0;
+		this.nextSeq = 0;
+		this.buffer = new Packet[WINDOW];
 	}
 
 	//chama o metodo send* passando como file extension 'default', o que significa texto normal

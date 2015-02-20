@@ -40,8 +40,9 @@ public class ReceiverBTP extends Receiver implements Runnable {
 					//UDP receive
 					this.receiverSocket.receive(packet);
 					//cria pacote
+					System.out.println("puta");
 					Packet p = receivePacket(packet.getData());
-
+					System.out.println(p);
 					if(p.getSeqNumber() == ACK){
 						ACK += 1;
 						ACK = ACK%MOD;
@@ -53,6 +54,7 @@ public class ReceiverBTP extends Receiver implements Runnable {
 						} else if (p.getType().equals("........")){
 							protocol.receiveSignal(p.getData());
 						} else if (p.getType().equals("ACK.....")){
+							ACK -= 1;
 							if(protocol.ackPosition <= p.getSeqNumber()){
 								protocol.ackPosition = p.getSeqNumber();
 							}

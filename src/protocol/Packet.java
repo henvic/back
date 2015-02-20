@@ -24,8 +24,8 @@ public class Packet implements Serializable {
 		this.length = length;
 	}
 	
-	public Packet(int aCK) {
-		this.seqNumber = 0;
+	public Packet(int ACK) {
+		this.seqNumber = ACK;
 		this.type = "ACK";
 		this.data = new byte[]{1};
 		this.id = 0;
