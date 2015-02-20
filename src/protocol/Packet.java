@@ -21,7 +21,11 @@ public class Packet implements Serializable {
 		this.finalPart = finalPart;
 		this.length = length;
 	}
-	
+
+	public Packet (String port) {
+
+	}
+
 	public boolean isFinalPart() {
 		return finalPart;
 	}

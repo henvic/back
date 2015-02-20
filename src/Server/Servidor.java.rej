@@ -1,0 +1,9 @@
+diff a/src/Server/Servidor.java b/src/Server/Servidor.java	(rejected hunks)
+@@ -152,6 +152,7 @@
+ 		if(!this.controlUsers.getUsers().exist(user.getIp())){
+ 			this.controlUsers.addUser(user);			
+ 		}else{
++<<<<<<< HEAD
+ 			throw new Exception("Usu�rio j� cadastrado.");
+ =======
+ 			throw new Exception("Usu�rio j� cadastrado.");

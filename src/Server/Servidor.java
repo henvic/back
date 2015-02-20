@@ -51,7 +51,7 @@ public class Servidor {
 
 		this.running = true;
 		this.receiverSocket = new DatagramSocket(PORT);
-		this.receiver = new ReceiverBTP(true, null, null, null);
+		this.receiver = new ReceiverBTP(null, true, null);
 
 		this.p2pStatus = 0;
 
@@ -152,7 +152,7 @@ public class Servidor {
 		if(!this.controlUsers.getUsers().exist(user.getIp())){
 			this.controlUsers.addUser(user);			
 		}else{
-			throw new Exception("Usuário já cadastrado.");
+			throw new Exception("Usuï¿½rio jï¿½ cadastrado.");
 		}
 	}
 
@@ -160,7 +160,7 @@ public class Servidor {
 		if(this.controlUsers.getUsers().exist(user.getIp())){
 			this.controlUsers.removeUser(user.getIp());
 		}else{
-			throw new Exception("Usuário não cadastrado.");
+			throw new Exception("Usuï¿½rio nï¿½o cadastrado.");
 		}
 	}
 

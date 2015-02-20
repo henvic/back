@@ -22,7 +22,7 @@ public class BeckSocket extends DatagramSocket{
 	public BeckSocket(int port, User destino, Servidor server) throws IOException {
 		super(port);
 		this.destino = destino;
-		protocol = new BackTP(new UserBTP("server", InetAddress.getLocalHost().getHostName()), (UserBTP) destino, this); // envia dados para classe receive qnd comecar com p2p
+		//protocol = new BackTP(new UserBTP("server", InetAddress.getLocalHost().getHostName()), (UserBTP) destino, this); // envia dados para classe receive qnd comecar com p2p
 	}
 
 	public String getIpDestino() {
@@ -31,15 +31,15 @@ public class BeckSocket extends DatagramSocket{
 
 	public void receive (Packet p) throws IOException {
 		if (p.getType().equals("p2p.....")) {
-			String[] split = new String(protocol.getReceiver().getBytes(p.getData(), p.getDataLength())).split("\n");
-			String secondUser = split[0];
-			server.conectarP2P(destino, server.getControlUsers().getUser(secondUser));
+			//String[] split = new String(protocol.getReceiver().getBytes(p.getData(), p.getDataLength())).split("\n");
+			//String secondUser = split[0];
+			//server.conectarP2P(destino, server.getControlUsers().getUser(secondUser));
 		} else if (p.getType().equals("p2pok...")) {
 			server.setP2pStatus(1);
 		} else if (p.getType().equals("p2pno...")) {
 			server.setP2pStatus(-1);
 		} else if (p.getType().equals("list....")){
-			protocol.send(server.getControlUsers().get);
+			//protocol.send(server.getControlUsers().get);
 		}
 	}
 
