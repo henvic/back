@@ -27,6 +27,12 @@ public class Packet implements Serializable {
 	public Packet(int aCK) {
 		this.seqNumber = 0;
 		this.type = "ACK";
+		this.data = new byte[]{1};
+		this.id = 0;
+		this.offset = 0;
+		this.finalPart = true;
+		this.length = 0;
+		
 	}
 
 	public Packet (String port) {
@@ -123,7 +129,6 @@ public class Packet implements Serializable {
 
 	public byte[] getBytes() {
 		byte[] aux = this.toString().substring(0, HEADER_SIZE).getBytes();
-		
 		byte[] retorno = new byte[aux.length + this.data.length];
 		for(int i = 0; i < aux.length; i++) retorno[i] = aux[i];
 		for(int i = 0; i < this.data.length; i++) retorno[i+aux.length] = this.data[i];

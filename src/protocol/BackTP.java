@@ -4,6 +4,8 @@ import messageCenter.ReceiverBTP;
 
 import java.util.Random;
 import java.io.IOException;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
@@ -18,6 +20,7 @@ import application.address.model.UserBTP;
 public class BackTP implements Back {
 
 	// sender and receiver attributes
+	private final int PORT = 2000;
 	public UserBTP sourceUser;
 	public Thread server;
 	private ReceiverBTP receiver;
@@ -29,18 +32,20 @@ public class BackTP implements Back {
 	// GBN attributes
 	private int fileNumber; //packet id
 	private int nextSeq;	//next sequence number
-
-	private final int SUCCESS_RATE = 20;
+	private DatagramSocket datagram;
+	private final int SUCCESS_RATE = 50;
 	private long timeStart;
 	public Thread getServer() {
 		return server;
 	}
 
 	public BackTP(UserBTP source, UserBTP destination) throws IOException {
+		
+		this.datagram = new DatagramSocket(PORT);
 		this.ackPosition = 0;
-		this.client = new SenderUDP(destination);
+		this.client = new SenderUDP(destination, datagram);
 		this.sourceUser = source;
-		this.receiver = new ReceiverBTP(true, this);
+		this.receiver = new ReceiverBTP(true, this, datagram, destination);
 		this.server = new Thread(receiver);
 		this.server.start();
 
@@ -78,8 +83,10 @@ public class BackTP implements Back {
 						new Thread(new Runnable() {
 							public void run() {
 								try {
-									if((int)(Math.random()*100) > 5){
+									if((int)(Math.random()*100) > SUCCESS_RATE){
 										client.send(getPacketBytes(buffer[ponteiro]));
+									}else{
+										System.out.println("deu erro");
 									}
 								} catch (IOException e) {
 									// TODO Auto-generated catch block
@@ -91,8 +98,10 @@ public class BackTP implements Back {
 				}
 			}
 			this.timeStart = System.currentTimeMillis();
-			if((int)(Math.random()*100) > 5){
+			if((int)(Math.random()*100) > SUCCESS_RATE){
 				client.send(getPacketBytes(p));
+			}else{
+				System.out.println("deu erro");
 			}
 			nextSeq += 1;
 		}
@@ -115,8 +124,10 @@ public class BackTP implements Back {
 					new Thread(new Runnable() {
 						public void run() {
 							try {
-								if((int)(Math.random()*100) > 5){
+								if((int)(Math.random()*100) > SUCCESS_RATE){
 									client.send(getPacketBytes(buffer[ponteiro]));
+								}else{
+									System.out.println("deu erro");
 								}
 							} catch (IOException e) {
 								// TODO Auto-generated catch block
@@ -130,8 +141,10 @@ public class BackTP implements Back {
 		new Thread(new Runnable() {
 			public void run() {
 				try {
-					if((int)(Math.random()*100) > 5){
+					if((int)(Math.random()*100) > SUCCESS_RATE){
 						client.send(getPacketBytes(p));
+					}else{
+						System.out.println("deu erro");
 					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
