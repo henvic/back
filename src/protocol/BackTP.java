@@ -2,6 +2,7 @@ package protocol;
 
 import messageCenter.ReceiverBTP;
 
+import java.util.Random;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -77,7 +78,9 @@ public class BackTP implements Back {
 						new Thread(new Runnable() {
 							public void run() {
 								try {
-									client.send(getPacketBytes(buffer[ponteiro]));
+									if((int)(Math.random()*100) > 5){
+										client.send(getPacketBytes(buffer[ponteiro]));
+									}
 								} catch (IOException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
@@ -88,7 +91,9 @@ public class BackTP implements Back {
 				}
 			}
 			this.timeStart = System.currentTimeMillis();
-			client.send(getPacketBytes(p));
+			if((int)(Math.random()*100) > 5){
+				client.send(getPacketBytes(p));
+			}
 			nextSeq += 1;
 		}
 
@@ -110,7 +115,9 @@ public class BackTP implements Back {
 					new Thread(new Runnable() {
 						public void run() {
 							try {
-								client.send(getPacketBytes(buffer[ponteiro]));
+								if((int)(Math.random()*100) > 5){
+									client.send(getPacketBytes(buffer[ponteiro]));
+								}
 							} catch (IOException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
@@ -123,7 +130,9 @@ public class BackTP implements Back {
 		new Thread(new Runnable() {
 			public void run() {
 				try {
-					client.send(getPacketBytes(p));
+					if((int)(Math.random()*100) > 5){
+						client.send(getPacketBytes(p));
+					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
