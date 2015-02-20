@@ -4,34 +4,55 @@ import java.util.Vector;
 
 import application.address.model.User;
 
-public class RepositoryUser {
+public class RepositoryUser implements RepositoryInterface<User>{
 	private Vector<User> users;
 	
 	public RepositoryUser() {
 		this.users = new Vector<User>();
 	}
-	
-	public void addUser(User user){
-		this.users.add(user);
+
+
+	@Override
+	public void add(User newElement) {
+		this.users.add(newElement);
 	}
-	
-	public void removeUser(String Ip){
+
+	@Override
+	public void remover(String key) {
 		boolean achou = false;
 		for(int i = 0; i < users.size() && !achou;i++){
-			if(users.get(i).getIp().equals(Ip)){
+			if(users.get(i).getIp().equals(key)){
 				users.remove(i);
 				achou = true;
 			}
 		}
+		
 	}
 
-	public Vector<User> getUsers() {
+	@Override
+	public Vector<User> getElements() {
 		return users;
 	}
-	
-	
-//	public Iterator<User> getIterator(){
-//		Iterator<User> iterator = new IteratorUser(this.users);
-//		return iterator;
-//	}
+
+	@Override
+	public boolean exist(String key) {
+		boolean retorno = false;
+		for (int i = 0; i < users.size() && !retorno; i++) {
+			if(users.elementAt(i).getIp().equals(key)){
+				retorno = true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public int findIndex(String key) {
+		int retorno = -1;
+		for (int i = 0; i < users.size() && retorno == -1; i++) {
+			if(users.elementAt(i).getIp().equals(key)){
+				retorno = i;
+			}
+		}
+		return retorno;
+	}
 }

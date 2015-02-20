@@ -79,10 +79,10 @@ public class IpEditDialogController {
 						@Override
 						public void run() {
 							User selected = userTable.getSelectionModel().getSelectedItem();
-							usersList.setAll(users.getUsers());
+							usersList.setAll(users.getElements());
 							userTable.getSelectionModel().select(selected);;
 						}
-						
+
 					});
 					try {
 						Thread.sleep(200);
@@ -160,13 +160,7 @@ public class IpEditDialogController {
 	@FXML
 	private void handleOk() {
 		if (isInputValid()) {
-			// person.setFirstName(firstNameField.getText());
-			// person.setLastName(lastNameField.getText());
-			// person.setStreet(streetField.getText());
-			// person.setPostalCode(Integer.parseInt(postalCodeField.getText()));
-			// person.setCity(cityField.getText());
-			// person.setBirthday(DateUtil.parse(birthdayField.getText()));
-
+			userTable.getSelectionModel().getSelectedItem();
 			okClicked = true;
 			dialogStage.close();
 		}
