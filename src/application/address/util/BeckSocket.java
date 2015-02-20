@@ -22,7 +22,7 @@ public class BeckSocket extends DatagramSocket{
 	public BeckSocket(int port, User destino, Servidor server) throws IOException {
 		super(port);
 		this.destino = destino;
-		//protocol = new BackTP(new UserBTP("server", InetAddress.getLocalHost().getHostName()), (UserBTP) destino, this);
+		protocol = new BackTP(new UserBTP("server", InetAddress.getLocalHost().getHostName()), (UserBTP) destino, this);
 	}
 
 	public String getIpDestino() {
@@ -31,7 +31,9 @@ public class BeckSocket extends DatagramSocket{
 
 	public void receive (Packet p) {
 		if (p.getType().equals("p2p.....")) {
-			//String[] split = new String(protocol.getBytes(p.getData(), p.getDataLength())).split("\n");
+			String[] split = new String(protocol.getReceiver().getBytes(p.getData(), p.getDataLength())).split("\n");
+			String secondUser = split[0];
+			server.conectarP2P(destino, server.getControlUsers().getUser(secondUser));
 		}
 	}
 

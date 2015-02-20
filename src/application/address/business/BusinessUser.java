@@ -23,7 +23,11 @@ public class BusinessUser {
 			users.remove(ip);
 		}
 	}
-	
+
+	public User getUser(String ip) {
+		return users.getElements().elementAt(users.findIndex(ip));
+	}
+
 	public boolean exist(String ip){
 		return users.exist(ip);		
 	}

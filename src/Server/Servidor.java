@@ -16,6 +16,10 @@ import application.address.model.User;
 import application.address.util.BeckSocket;
 
 public class Servidor {
+	public BusinessUser getControlUsers() {
+		return controlUsers;
+	}
+
 	private BusinessUser controlUsers;
 	//identificacao de servidor p/ clientes (beckSocket)
 	private int port;
@@ -42,7 +46,7 @@ public class Servidor {
 
 		this.running = true;
 		this.receiverSocket = new DatagramSocket(PORT);
-		this.receiver = new ReceiverBTP(true, null);
+		this.receiver = new ReceiverBTP(true, null, null, null);
 
 		if(protocolo.equalsIgnoreCase("tcp")){
 			//icializar o receiver TCP
@@ -109,8 +113,10 @@ public class Servidor {
 		
 	}
 	
-	public void conectarP2P(User user){
-
+	public void conectarP2P(User source, User destination){
+		//envia destination requisicao
+		//espera resposta
+		//se positiva manda source iniciar conexao
 	}
 	
 	public void setStatus(String onOrOff){
