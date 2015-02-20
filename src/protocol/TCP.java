@@ -22,9 +22,6 @@ public class TCP implements Back {
 
 		this.sourceUser = source;
 		this.fileNumber = 0;
-//		this.client = new Sender(destination, false);
-
-
 		
 		this.client = new Sender(destination, false);
 		this.receiver = new ReceiverTCP(destination, true);
@@ -48,7 +45,7 @@ public class TCP implements Back {
 
 	@Override
 	public byte[] getPacketBytes(Packet p) {	//implementar igual ao UDP
-		return p.toString().getBytes();
+		return p.getBytes();
 	}
 
 

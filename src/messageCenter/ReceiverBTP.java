@@ -40,7 +40,7 @@ public class ReceiverBTP extends Receiver implements Runnable {
 
 					if (p.getType().equals("default.")) {
 						//dataLength = tamanho real dos dados
-						//System.err.println(this.getDestination().getIp() + " falou: " + new String(getBytes(packet.getData(), p.getDataLength())));
+						System.err.println(this.getDestination().getIp() + " falou: " + new String(getBytes(packet.getData(), p.getDataLength())));
 						protocol.receiveText(p);
 
 					} else if (p.getType().equals("........")){

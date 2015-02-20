@@ -15,14 +15,14 @@ public class Sender {
     private DatagramSocket senderDSocket;
 	private Socket senderSocket;
     private boolean counter;
-	private boolean tcp;
+	private boolean udp;
     private static int PORT = 2000;
 
-    public Sender(User destination, boolean tcp) throws IOException {
+    public Sender(User destination, boolean udp) throws IOException {
         this.destination = destination;
         this.destinationIP = InetAddress.getByName(destination.getIp().toString());
-		this.tcp = tcp;
-		if (!tcp) {
+		this.udp = udp;
+		if (!udp) {
 			this.senderSocket = new Socket(destinationIP, PORT);
 		} else {
 			this.senderDSocket = new DatagramSocket();
@@ -30,7 +30,7 @@ public class Sender {
     }
 
     public void send(byte[] data) throws IOException {
-		if (!tcp) {
+		if (!udp) {
 
 			DataOutputStream outputStream = new DataOutputStream(this.senderSocket.getOutputStream());
 			outputStream.write(data);

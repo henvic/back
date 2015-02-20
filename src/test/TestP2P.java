@@ -26,12 +26,12 @@ public class TestP2P{
 			User me = null;
 			User user = null;
 			if(tipo.equalsIgnoreCase("TCP")){
-				me = new UserTCP("leo", "172.22.46.18");
-				user = new UserTCP("<nome aqui>", "172.22.46.18");
+				me = new UserTCP("leo", "localhost");
+				user = new UserTCP("<nome aqui>", "localhost");
 				//baixa
 			} else {
-				me = new UserBTP("leo", "172.22.46.92");
-				user = new UserBTP("<nome aqui>", "172.22.46.112"); //destino
+				me = new UserBTP("leo", "localhost");
+				user = new UserBTP("<nome aqui>", "localhost"); //destino
 			}
 			try {
 				Back protocol = null;
