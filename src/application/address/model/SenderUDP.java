@@ -8,10 +8,10 @@ import java.net.DatagramSocket;
 public class SenderUDP extends Sender {
 	private DatagramSocket senderDSocket;
 
-	public SenderUDP(User destination) throws IOException {
+	public SenderUDP(User destination, DatagramSocket datagram) throws IOException {
 		super(destination);
 		// TODO Auto-generated constructor stub
-		this.senderDSocket = new DatagramSocket();
+		this.senderDSocket = datagram;
 
 	}
 

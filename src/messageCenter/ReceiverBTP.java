@@ -16,9 +16,9 @@ public class ReceiverBTP extends Receiver implements Runnable {
 	private int ACK;
 	private final int MOD = 1000;
 
-	public ReceiverBTP(boolean running, BackTP protocol) throws IOException {
+	public ReceiverBTP(boolean running, BackTP protocol, DatagramSocket datagram) throws IOException {
 		super(running);
-		this.receiverSocket = new DatagramSocket(this.getPORT());
+		this.receiverSocket = datagram;
 		this.protocol = protocol;
 		this.ACK = 0;
 	}
@@ -87,9 +87,10 @@ public class ReceiverBTP extends Receiver implements Runnable {
 
 						//reseta buffer BTP
 						packet.setData(new byte[this.getBufferSize()]);
+						System.out.println(this.getBufferSize());
 					} 
 					Packet ack = new Packet(ACK);
-					receiverSocket.send(new DatagramPacket(ack.getBytes(), this.getBufferSize()));
+					receiverSocket.send(new DatagramPacket(ack.getBytes(), 0));
 				}
 
 			} catch (IOException e) {
