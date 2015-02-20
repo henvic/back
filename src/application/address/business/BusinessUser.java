@@ -20,7 +20,7 @@ public class BusinessUser {
 		if(!exist(ip)){
 			throw new NullPointerException("Cliente não existente");
 		}else{			
-			users.remover(ip);
+			users.remove(ip);
 		}
 	}
 	
