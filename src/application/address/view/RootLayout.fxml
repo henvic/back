@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="539.0" prefWidth="935.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.address.view.RootLayoutController">
+<AnchorPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.address.view.RootLayoutController">
    <children>
-      <Pane layoutX="-4.0" layoutY="3.0" prefHeight="539.0" prefWidth="935.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane prefHeight="300.0" prefWidth="400.0">
          <children>
             <Button layoutX="184.0" layoutY="194.0" mnemonicParsing="false" onAction="#connect" prefHeight="25.0" prefWidth="149.0" text="Connect" />
             <Label layoutX="20.0" layoutY="79.0" text="Nome" />
             <Label layoutX="20.0" layoutY="139.0" text="IP do Servidor" />
             <TextField fx:id="fieldNome" layoutX="184.0" layoutY="75.0" />
             <TextField fx:id="fieldIp" layoutX="184.0" layoutY="135.0" />
-            <MenuBar layoutX="7.0" layoutY="8.0">
+            <MenuBar prefHeight="25.0" prefWidth="400.0">
               <menus>
                 <Menu mnemonicParsing="false" text="File" />
                 <Menu mnemonicParsing="false" text="Edit">
@@ -24,8 +25,12 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Conexões">
                   <items>
-                        <CheckMenuItem mnemonicParsing="false" text="Conexão TCP" />
-                        <CheckMenuItem mnemonicParsing="false" text="Conexão UDP Confiável" />
+                        <RadioMenuItem fx:id="conexaoTCP" mnemonicParsing="false" selected="true" text="Conexão TCP">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="group" />
+                           </toggleGroup>
+                        </RadioMenuItem>
+                        <RadioMenuItem fx:id="conexaoUDP" mnemonicParsing="false" text="Conexão UDP Confiável" toggleGroup="$group" />
                   </items>
                 </Menu>
               </menus>
