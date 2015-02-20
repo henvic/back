@@ -30,7 +30,7 @@ public class TestP2P{
 				//baixa
 			} else {
 				me = new UserBTP("leo", "localhost");
-				user = new UserBTP("<nome aqui>", "172.22.46.112"); //destino
+				user = new UserBTP("<nome aqui>", "172.22.46.18"); //destino
 			}
 			try {
 				Back protocol = null;

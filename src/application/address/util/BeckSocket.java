@@ -39,7 +39,7 @@ public class BeckSocket extends DatagramSocket{
 		} else if (p.getType().equals("p2pno...")) {
 			server.setP2pStatus(-1);
 		} else if (p.getType().equals("list....")){
-			protocol.send(server.getControlUsers().get);
+			//protocol.send(server.getControlUsers());
 		}
 	}
 
