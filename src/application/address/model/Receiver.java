@@ -7,13 +7,11 @@ import java.net.ServerSocket;
 public abstract class Receiver {
 
 	private boolean running;
-	private User destination;
 	private static final int PORT = 2000;
 	private static final int BUFFER_SIZE = 1500;
 
-	public Receiver(User destination, boolean running) throws IOException {
+	public Receiver(boolean running) throws IOException {
 		this.running = running;
-		this.destination = destination;
 
 	}
 
@@ -25,9 +23,6 @@ public abstract class Receiver {
 		return BUFFER_SIZE-47;
 	}
 
-	public User getDestination() {
-		return destination;
-	}
 
 	public boolean isRunning() {
 		return running;
