@@ -2,18 +2,20 @@ package protocol;
 import java.io.Serializable;
 
 public class Packet implements Serializable {
-	private int seqNumber;
-	private String type;
+	private int seqNumber; // sequenceNumber on GBNPacket
+	private String type; // type on GBNPacket ("ack", "datapckt" - data_packet, "eot" - end_of_transmission)
 	private int id;
 	private int offset;
 	private boolean finalPart;
 	private int length;
-	private byte[] data;
+	private byte[] data; // data on GBNPacket
 
     public final static int HEADER_SIZE = 47;
+	public static final int SEQUENCE_MOD = 32; // GBNPacket
+	public static final int PACKET_LENGTH = 512; // GBNPacket
 
 	public Packet(int seqNumber, String type, int id, int offset, boolean finalPart, byte[] data, int length){
-		this.seqNumber = seqNumber;
+		this.seqNumber = seqNumber % SEQUENCE_MOD;
 		this.type = type;
 		this.data = data;
 		this.id = id;
