@@ -18,7 +18,7 @@ public class RepositoryUser implements RepositoryInterface<User>{
 	}
 
 	@Override
-	public void remover(String key) {
+	public void remove(String key) {
 		boolean achou = false;
 		for(int i = 0; i < users.size() && !achou;i++){
 			if(users.get(i).getIp().equals(key)){
