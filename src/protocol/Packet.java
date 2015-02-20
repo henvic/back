@@ -42,7 +42,7 @@ public class Packet implements Serializable {
 		this.id = 0;
 		this.offset = 0;
 		this.finalPart = true;
-		this.length = 0;
+		this.length = this.data.length;
 	}
 
 	public boolean isFinalPart() {

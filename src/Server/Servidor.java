@@ -86,7 +86,7 @@ public class Servidor {
 								//usuario ja conectado
 							}
 							//envia "shake" com datagramSocket
-							Packet shake = new Packet(port + "");
+							Packet shake = new Packet(port + "\n");
 							try {
 								receiverSocket.send(new DatagramPacket(shake.getBytes(), receiver.getBufferSize()));
 							} catch (IOException e) {
