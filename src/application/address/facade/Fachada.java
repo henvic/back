@@ -1,16 +1,13 @@
 package application.address.facade;
 
+import Server.Servidor;
 import application.address.util.RepositoryUser;
 
 public class Fachada {
-	private RepositoryUser repositorio;
+	private Servidor server;
+
 	Fachada(String protocolo){
-		this.repositorio = new RepositoryUser();
-		if(protocolo.equals("tcp")){
-			//inicializar negocio tcp
-		}else{
-			//inizializar negocio udp
-		}
+		this.server = new Servidor(protocolo);
 	}
 	
 	public void conectarUsuario(){
