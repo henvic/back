@@ -44,7 +44,7 @@ public class Servidor {
 
 	public int p2pStatus;
 	public Servidor(String protocolo) throws IOException {
-		
+
 		this.port = 8080;
 		this.controlUsers = new BusinessUser();
 		this.serverIp = InetAddress.getLocalHost();
@@ -57,7 +57,7 @@ public class Servidor {
 
 		if(protocolo.equalsIgnoreCase("tcp")){
 			//icializar o receiver TCP
-			
+
 		}else{
 			new Thread(new Runnable() {
 				@Override
@@ -101,7 +101,7 @@ public class Servidor {
 
 		}
 	}
-	
+
 	public void conectarAoServidor(User user, int port) {
 		controlUsers.addUser(user);
 		try {
@@ -115,11 +115,11 @@ public class Servidor {
 		}
 
 	}
-	
+
 	public void redirecionarPorta(){
-		
+
 	}
-	
+
 	public void conectarP2P(User source, User destination) throws IOException {
 		//envia destination requisicao
 		BackTP serverTo2 = new BackTP (new UserBTP("server", InetAddress.getLocalHost().getHostName()), (UserBTP) destination);
@@ -135,25 +135,33 @@ public class Servidor {
 			serverTo1.send(destination.getIp().getBytes(),"p2popen."); //envia ip do user2 pro user1
 		}
 	}
-	
+
 	public void setStatus(String onOrOff){
 
 	}
-	
+
 	public void desconectar(User user){
 
 	}
-		
+
 	public void checkUsers(){
 
 	}
-	
-	public void addUser(User user){
 
+	public void addUser(User user) throws Exception{
+		if(!this.controlUsers.getUsers().exist(user.getIp())){
+			this.controlUsers.addUser(user);			
+		}else{
+			throw new Exception("Usuário já cadastrado.");
+		}
 	}
-	
-	public void removeUser(User user){
 
+	public void removeUser(User user) throws Exception{
+		if(this.controlUsers.getUsers().exist(user.getIp())){
+			this.controlUsers.removeUser(user.getIp());
+		}else{
+			throw new Exception("Usuário não cadastrado.");
+		}
 	}
 
 }
