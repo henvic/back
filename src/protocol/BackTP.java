@@ -99,29 +99,15 @@ public class BackTP implements Back {
 				} else if(System.currentTimeMillis() - this.timeStart > 400) {
 					for(int k = 0; k < WINDOW && buffer[k] != null; k++){
 						this.ponteiro = k;
-						new Thread(new Runnable() {
-							public void run() {
-								try {
-									if((int)(Math.random()*100) > SUCCESS_RATE){
-										client.send(getPacketBytes(buffer[ponteiro]));
-									}else{
-										System.out.println("deu erro");
-									}
-								} catch (IOException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-							}
-						}).start();
+
+						client.send(getPacketBytes(buffer[ponteiro]));
+
 					}
 				}
 			}
 			this.timeStart = System.currentTimeMillis();
-			if((int)(Math.random()*100) > SUCCESS_RATE){
-				client.send(getPacketBytes(p));
-			}else{
-				System.out.println("deu erro");
-			}
+			client.send(getPacketBytes(p));
+
 			nextSeq += 1;
 		}
 
@@ -140,37 +126,13 @@ public class BackTP implements Back {
 			} else if(System.currentTimeMillis() - this.timeStart > 400) {
 				for(int i = 0; i < WINDOW && buffer[i] != null; i++){
 					this.ponteiro = i;
-					new Thread(new Runnable() {
-						public void run() {
-							try {
-								if((int)(Math.random()*100) > SUCCESS_RATE){
-									client.send(getPacketBytes(buffer[ponteiro]));
-								}else{
-									System.out.println("deu erro");
-								}
-							} catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						}
-					}).start();
+					client.send(getPacketBytes(buffer[ponteiro]));
+
 				}
 			}
 		}
-		new Thread(new Runnable() {
-			public void run() {
-				try {
-					if((int)(Math.random()*100) > SUCCESS_RATE){
-						client.send(getPacketBytes(p));
-					}else{
-						System.out.println("deu erro");
-					}
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}).start();
+
+		client.send(getPacketBytes(p));
 		this.timeStart = System.currentTimeMillis();
 		this.fileNumber += 1;
 		nextSeq += 1;
