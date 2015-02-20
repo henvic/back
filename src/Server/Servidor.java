@@ -21,13 +21,17 @@ public class Servidor {
 	private int port;
 	private InetAddress serverIp;
 
-	//thread
+	//global threads
 	private boolean running;
+
+	//thread
 	private DatagramSocket receiverSocket;
 	private ReceiverBTP receiver;
 
 	//thread garçom
 	private LinkedList<BeckSocket> becks;
+	private DatagramSocket receiverSocketG;
+	private ReceiverBTP receiverG;
 
 	//identificacao do servidor p/ clientes (conectar)
 	private final int PORT = 50000;
@@ -89,14 +93,43 @@ public class Servidor {
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
+					becks = new LinkedList<BeckSocket>();
+					BeckSocket cur;
 					while (true) {
 						boolean run = true;
 
-						if(becks.)
-						while (run && running){
+						if(!becks.isEmpty()) {
+							cur = becks.getFirst();
+							int i = 1;
 
+							while (run && running) {
+								boolean noErro = true;
 
-							run = false;
+								byte[] udpBuffer = new byte[receiverG.getBufferSize() + Packet.HEADER_SIZE];
+								DatagramPacket packet = new DatagramPacket(udpBuffer, udpBuffer.length);
+
+								try {
+									cur.setSoTimeout(100);
+									cur.receive(packet);
+								} catch (SocketException e) {
+									e.printStackTrace();
+								} catch (IOException e) {
+									System.err.println("nada a receber");
+									noErro = false;
+								}
+
+								if(noErro) {
+									
+								}
+
+								if (becks.iterator().hasNext()) {
+									cur = becks.get(i);
+								}
+
+								if (cur == becks.getLast()) {
+									run = false;
+								}
+							}
 						}
 					}
 				}
