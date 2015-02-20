@@ -40,11 +40,12 @@ public class BackTP implements Back {
 	}
 
 	public BackTP(UserBTP source, UserBTP destination) throws IOException {
-		this.datagram = new DatagramSocket(PORT, InetAddress.getByName(destination.getIp()));
+		
+		this.datagram = new DatagramSocket(PORT);
 		this.ackPosition = 0;
 		this.client = new SenderUDP(destination, datagram);
 		this.sourceUser = source;
-		this.receiver = new ReceiverBTP(true, this, datagram);
+		this.receiver = new ReceiverBTP(true, this, datagram, destination);
 		this.server = new Thread(receiver);
 		this.server.start();
 
