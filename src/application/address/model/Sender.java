@@ -8,41 +8,20 @@ import java.net.*;
 
 import application.address.model.User;
 
-public class Sender {
+public abstract class Sender {
 
-    private User destination;
-    private InetAddress destinationIP;
-    private DatagramSocket senderDSocket;
-	private Socket senderSocket;
-    private boolean counter;
-	private boolean udp;
-    private static int PORT = 2000;
+	private User destination;
+	protected InetAddress destinationIP;
+	private boolean counter;
+	protected static int PORT = 2000;
 
-    public Sender(User destination, boolean udp) throws IOException {
-        this.destination = destination;
-        this.destinationIP = InetAddress.getByName(destination.getIp().toString());
-		this.udp = udp;
-		if (!udp) {
-			this.senderSocket = new Socket(destinationIP, PORT);
-		} else {
-			this.senderDSocket = new DatagramSocket();
-		}
-    }
+	public Sender(User destination) throws IOException {
+		this.destination = destination;
+		this.destinationIP = InetAddress.getByName(destination.getIp().toString());
+	}
 
-    public void send(byte[] data) throws IOException {
-		if (!udp) {
+	public abstract void send(byte[] data) throws IOException;
 
-			DataOutputStream outputStream = new DataOutputStream(this.senderSocket.getOutputStream());
-			outputStream.write(data);
-		} else {
-			byte[] dataBytes = data;
-			DatagramPacket packet;
-			packet = new DatagramPacket(dataBytes, dataBytes.length, destinationIP, PORT);
-			
-			this.senderDSocket.send(packet);
-			
-		}
 
-    }
 
 }

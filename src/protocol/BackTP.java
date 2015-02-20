@@ -9,6 +9,7 @@ import java.util.Vector;
 
 import application.address.model.Receiver;
 import application.address.model.Sender;
+import application.address.model.SenderUDP;
 import application.address.model.UserBTP;
 
 public class BackTP implements Back {
@@ -17,7 +18,7 @@ public class BackTP implements Back {
 	public UserBTP sourceUser;
 	public Thread server;
 	private ReceiverBTP receiver;
-	public Sender client;
+	public SenderUDP client;
 
 	// GBN attributes
 	private int fileNumber; //packet id
@@ -31,7 +32,7 @@ public class BackTP implements Back {
 	}
 
 	public BackTP(UserBTP source, UserBTP destination) throws IOException {
-		this.client = new Sender(destination, true);
+		this.client = new SenderUDP(destination);
 
 		this.sourceUser = source;
 		this.receiver = new ReceiverBTP( true, this);
