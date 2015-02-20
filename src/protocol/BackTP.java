@@ -34,7 +34,7 @@ public class BackTP implements Back {
 		this.client = new Sender(destination, true);
 
 		this.sourceUser = source;
-		this.receiver = new ReceiverBTP(destination, true, this);
+		this.receiver = new ReceiverBTP( true, this);
 		this.server = new Thread(receiver);
 		this.server.start();
 
@@ -52,7 +52,7 @@ public class BackTP implements Back {
 	public void send(byte[] data, String fileExtension) throws IOException {
 		//em fase de test
 		int tam = receiver.getBufferSize();
-		int qtdPacotes = data.length/tam + 1;
+		int qtdPacotes = (data.length/tam) + 1;
 		//'salva' todos os pacotes menos o ultimo (last packet = false)
 		for(int i = 0; i < qtdPacotes-1; i++){
 

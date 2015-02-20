@@ -24,7 +24,7 @@ public class TCP implements Back {
         this.fileNumber = 0;
 
         this.client = new Sender(destination, false);
-        this.receiver = new ReceiverTCP(destination, true);
+        this.receiver = new ReceiverTCP(true);
         this.server = new Thread(receiver);
         this.server.start();
 

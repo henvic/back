@@ -23,8 +23,8 @@ public class ReceiverTCP extends Receiver implements Runnable {
 	private ServerSocket welcome;
 	private InputStream tcpBuffer;
 
-	public ReceiverTCP(User destination, boolean running) throws IOException {
-		super(destination, running);
+	public ReceiverTCP(boolean running) throws IOException {
+		super(running);
 		welcome = new ServerSocket(this.getPORT()+1);
 		System.err.println("SOU UMA PUTA");
 		receiverSocket = welcome.accept();

@@ -24,6 +24,11 @@ public class Packet implements Serializable {
 		this.length = length;
 	}
 	
+	public Packet(int aCK) {
+		this.seqNumber = 0;
+		this.type = "ACK";
+	}
+
 	public boolean isFinalPart() {
 		return finalPart;
 	}
