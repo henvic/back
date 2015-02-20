@@ -52,18 +52,15 @@ public class ReceiverTCP extends Receiver implements Runnable {
 					} else {
 						saida = new File("downloads/" + "Padrão." + packet.getType().substring(0, packet.getType().indexOf('.')));
 						saidaII = new FileOutputStream(saida);
-//						int tam = packet.getData().length;
-						saidaII.write(getBytes(dados));
+						int tam = packet.getData().length;
+						saidaII.write(packet.getData());
 						saidaII.flush();
-						System.err.println(dados.length);
-						System.out.println(packet.getData().length);
+
 						while((tamanho = tcpBuffer.available()) != 0){
 							dados = new byte[tamanho];
 							tcpBuffer.read(dados);
 							saidaII.write(dados);
 							saidaII.flush();
-							System.err.println(tamanho);
-							System.err.println(packet.getDataLength());
 						}
 						saidaII.close();
 						System.out.println("y");
@@ -95,7 +92,6 @@ public class ReceiverTCP extends Receiver implements Runnable {
         );
 
 	}
-	
 	public Packet receivePacket (byte[] data, int dataFinal) {
 		System.err.println(data.length + ":p");
 		String dataString = new String(data);
@@ -115,14 +111,6 @@ public class ReceiverTCP extends Receiver implements Runnable {
             dataString.substring(length+1, dataFinal+length+3).getBytes(),
             Integer.parseInt(dataString.substring(isFinal + 1, length)));
 
-	}
-	
-	public byte[] getBytes(byte[] data){
-		byte[] retorno = new byte[data.length - Packet.HEADER_SIZE];
-		for(int i = 0; i < data.length - Packet.HEADER_SIZE; i++){
-			retorno[i] = data[i + Packet.HEADER_SIZE];
-		}
-		return retorno;
 	}
 	
 }

@@ -18,7 +18,6 @@ import application.address.model.UserTCP;
 public class TestP2P{
 	
     public static void  main (String args[]) {
-    	System.out.println("hi");
 		while (true){
 			Scanner in = new Scanner(System.in);
 			String tipo = in.nextLine();
@@ -46,7 +45,6 @@ public class TestP2P{
 
 				while(running){
 					System.out.println("eu aqui");
-//					System.out.println(System.currentTimeMillis());
 					String message = "";
 					if(message.equals("resend")){
 
@@ -83,6 +81,5 @@ public class TestP2P{
 				e.printStackTrace();
 			}
 		}
-
     }
 }
