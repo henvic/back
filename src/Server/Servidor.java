@@ -1,56 +1,146 @@
 package Server;
 
-import java.net.InetAddress;
-import java.net.SocketException;
-import java.net.UnknownHostException;
+import java.io.IOException;
+import java.net.*;
+import java.util.LinkedList;
 
+import application.address.model.Receiver;
+import application.address.model.Sender;
+import application.address.model.UserBTP;
+import messageCenter.ReceiverBTP;
 import protocol.Back;
+import protocol.BackTP;
 import protocol.Packet;
 import application.address.business.BusinessUser;
 import application.address.model.User;
 import application.address.util.BeckSocket;
 
-public abstract class Servidor {
+public class Servidor {
 	private BusinessUser controlUsers;
+	//identificacao de servidor p/ clientes (beckSocket)
 	private int port;
 	private InetAddress serverIp;
-	private Back protocol;
-	
-	public Servidor(String protocolo) throws UnknownHostException{
+
+	//thread
+	private boolean running;
+	private DatagramSocket receiverSocket;
+	private ReceiverBTP receiver;
+
+	//thread garçom
+	private LinkedList<BeckSocket> becks;
+
+	//identificacao do servidor p/ clientes (conectar)
+	private final int PORT = 50000;
+
+	public Servidor(String protocolo) throws IOException {
 		
 		this.port = 8080;
 		this.controlUsers = new BusinessUser();
 		this.serverIp = InetAddress.getLocalHost();
-		
+
+		this.running = true;
+		this.receiverSocket = new DatagramSocket(PORT);
+		this.receiver = new ReceiverBTP(true, null);
+
 		if(protocolo.equalsIgnoreCase("tcp")){
-			//icializar o protocolo TCP
+			//icializar o receiver TCP
 			
 		}else{
-			//icializar o protocolo UDP
-			
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					while (true) {
+						byte[] udpBuffer = new byte[receiver.getBufferSize() + Packet.HEADER_SIZE];
+						DatagramPacket packet = new DatagramPacket(udpBuffer, udpBuffer.length);
+
+						while (running) {
+							//UDP receive
+							try {
+								receiverSocket.receive(packet);
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+
+							//cria pacote
+							Packet p = receiver.receivePacket(packet.getData());
+							//o username vem na primeira linha, o ip na segunda
+							String[] split = new String(receiver.getBytes(p.getData(), p.getDataLength())).split("\n");
+
+							//conecta ao servidor se usuario ainda n estiver no repositorio de beckSockets
+							if (!controlUsers.exist(split[1])) {
+								conectarAoServidor(new UserBTP(split[0], split[1]), port);
+							} else {
+								//usuario ja conectado
+							}
+							//envia "shake" com datagramSocket
+							Packet shake = new Packet(port + "");
+							try {
+								receiverSocket.send(new DatagramPacket(shake.getBytes(), receiver.getBufferSize()));
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+
+							port += 1;
+						}
+					}
+				}
+			}).start();
+
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					while (true) {
+						boolean run = true;
+
+						if(becks.)
+						while (run && running){
+
+
+							run = false;
+						}
+					}
+				}
+			}).start();
 		}
 	}
 	
-	public void conectarAoServidor(User user) throws SocketException{
-		
-		BeckSocket beck = new BeckSocket(port, user.getIp());
-//		protocol.se
+	public void conectarAoServidor(User user, int port) {
+		controlUsers.addUser(user);
+		try {
+			BeckSocket beck = new BeckSocket(port, user.getIp());
+			//adiciona beck no vetor
+		} catch (SocketException e) {
+			e.printStackTrace();
+		}
+
 	}
 	
 	public void redirecionarPorta(){
 		
 	}
 	
-	public abstract void conectarP2P(User user);
+	public void conectarP2P(User user){
+
+	}
 	
-	public abstract void setStatus(String onOrOff);
+	public void setStatus(String onOrOff){
+
+	}
 	
-	public abstract void desconectar(User user);
+	public void desconectar(User user){
+
+	}
 		
-	public abstract void checkUsers();
+	public void checkUsers(){
+
+	}
 	
-	public abstract void addUser(User user);
+	public void addUser(User user){
+
+	}
 	
-	public abstract void removeUser(User user);	
+	public void removeUser(User user){
+
+	}
 
 }

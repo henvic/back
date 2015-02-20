@@ -29,6 +29,11 @@ public class Packet implements Serializable {
 		this.type = "ACK";
 	}
 
+	public Packet (String port) {
+		this.data = port.getBytes();
+		this.type = "shake";
+	}
+
 	public boolean isFinalPart() {
 		return finalPart;
 	}
