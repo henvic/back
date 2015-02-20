@@ -38,6 +38,11 @@ public class Packet implements Serializable {
 	public Packet (String port) {
 		this.data = port.getBytes();
 		this.type = "shake";
+		this.data = new byte[]{1};
+		this.id = 0;
+		this.offset = 0;
+		this.finalPart = true;
+		this.length = 0;
 	}
 
 	public boolean isFinalPart() {
