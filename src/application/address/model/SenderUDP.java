@@ -20,6 +20,7 @@ public class SenderUDP extends Sender {
 		DatagramPacket packet;
 		packet = new DatagramPacket(dataBytes, dataBytes.length, destinationIP, PORT);
 		this.senderDSocket.send(packet);
+		
 	}
 
 }

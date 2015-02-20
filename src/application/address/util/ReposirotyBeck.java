@@ -11,7 +11,7 @@ public class ReposirotyBeck implements RepositoryInterface<BeckSocket> {
 	}
 
 	@Override
-	public void remover(String key) {
+	public void remove(String key) {
 		boolean achou = false;
 		for(int i = 0; i < becks.size() && !achou;i++){
 			if(becks.get(i).getIpDestino().equals(key)){

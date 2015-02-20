@@ -19,11 +19,12 @@ public class BackTP implements Back {
 	public Thread server;
 	private ReceiverBTP receiver;
 	public SenderUDP client;
-
+	public int ackPosition;
+	public final int WINDOW = 8;
+	public Packet[] buffer;
 	// GBN attributes
 	private int fileNumber; //packet id
 	private int nextSeq;	//next sequence number
-	private LinkedList<Packet> buffer; //unAckedPackets
 
 	private final int SUCCESS_RATE = 20;
 
@@ -32,16 +33,16 @@ public class BackTP implements Back {
 	}
 
 	public BackTP(UserBTP source, UserBTP destination) throws IOException {
+		this.ackPosition = 0;
 		this.client = new SenderUDP(destination);
-
 		this.sourceUser = source;
-		this.receiver = new ReceiverBTP( true, this);
+		this.receiver = new ReceiverBTP(true, this);
 		this.server = new Thread(receiver);
 		this.server.start();
-
+		
 		this.fileNumber = 0;
 		this.nextSeq = 0;
-		buffer = new LinkedList<Packet>();
+		this.buffer = new Packet[WINDOW] ;
 	}
 
 	//chama o metodo send* passando como file extension 'default', o que significa texto normal
@@ -56,7 +57,7 @@ public class BackTP implements Back {
 		int qtdPacotes = (data.length/tam) + 1;
 		//'salva' todos os pacotes menos o ultimo (last packet = false)
 		for(int i = 0; i < qtdPacotes-1; i++){
-
+  
 			byte[] dados = new byte[tam];
 
 			for(int j = 0; j < tam; j++) {
@@ -64,8 +65,12 @@ public class BackTP implements Back {
 			}
 
 			Packet p = new Packet(this.fileNumber, fileExtension, nextSeq, i*tam, false, dados, data.length);
-			buffer.addLast(p);
-//			client.send(getPacketBytes(p));
+			while(buffer[WINDOW-1] != null){
+				if(buffer[0].getSeqNumber() < ackPosition){
+					
+				}
+			}
+			client.send(getPacketBytes(p));
 			nextSeq += 1;
 		}
 
@@ -78,8 +83,8 @@ public class BackTP implements Back {
 		}
 
 		Packet p = new Packet(this.fileNumber, fileExtension, nextSeq, (qtdPacotes-1)*tam, true, dados, fim);
-		buffer.addLast(p);
-		//client.send(getPacketBytes(p));
+		
+		client.send(getPacketBytes(p));
 		this.fileNumber += 1;
 		nextSeq += 1;
 
@@ -101,9 +106,15 @@ public class BackTP implements Back {
 	}
 
 	public void receiveText(Packet p) {
-
 	}
-
+	
+	public void deslocar(int x){
+		for(int i = 0; i<x; i++){
+			for(int j = 0; j<WINDOW-1; j++) buffer[j] = buffer[j+1];
+			buffer[WINDOW-1] = null;
+		}
+	}
+	
 	/**
 	 * method: process the ack receiving
 	 * description: Update nextSeq number

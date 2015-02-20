@@ -17,8 +17,9 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("view\\RootLayout.fxml"));
+//			loader.setLocation(getClass().getResource("view\\RootLayout.fxml"));
 //			loader.setLocation(getClass().getResource("view\\IpEditDialog.fxml"));
+			loader.setLocation(getClass().getResource("view\\ClientChat.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
 			
 			Stage currentStage = new Stage();
@@ -33,7 +34,7 @@ public class Main extends Application {
 			users.add(new UserBTP("Nada", "1"));
 			
 			
-			RootLayoutController controller = loader.getController();
+//			RootLayoutController controller = loader.getController();
 			currentStage.showAndWait();
 //			return controller.isConnectClicked();
 //			IpEditDialogController vaca = loader.getController();

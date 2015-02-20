@@ -50,6 +50,11 @@ public class ReceiverBTP extends Receiver implements Runnable {
 
 						} else if (p.getType().equals("........")){
 							protocol.receiveSignal(p.getData());
+						} else if (p.getType().equals("ACK.....")){
+							if(protocol.ackPosition <= p.getSeqNumber()){
+								protocol.ackPosition = p.getSeqNumber();
+							}
+							continue;
 						} else {
 							//trocar o "Padrão." por um nome padrão incremental para arquivos recebidos
 							if(p.getOffset() == 0 &&  !p.getType().equals("default.")){

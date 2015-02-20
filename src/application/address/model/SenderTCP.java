@@ -8,7 +8,7 @@ import java.net.Socket;
 public class SenderTCP extends Sender {
 	private Socket senderSocket;
 
-	public SenderTCP(User destination, boolean udp) throws IOException {
+	public SenderTCP(User destination) throws IOException {
 		super(destination);
 		// TODO Auto-generated constructor stub
 		this.senderSocket = new Socket(InetAddress.getByName(destination.getIp().toString()), Sender.PORT);
