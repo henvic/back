@@ -3,6 +3,7 @@ package protocol;
 import java.io.IOException;
 
 import application.address.model.Sender;
+import application.address.model.SenderTCP;
 import application.address.model.UserBTP;
 import application.address.model.UserTCP;
 import messageCenter.ReceiverBTP;
@@ -23,7 +24,7 @@ public class TCP implements Back {
         this.sourceUser = source;
         this.fileNumber = 0;
 
-        this.client = new Sender(destination, false);
+        this.client = new SenderTCP(destination);
         this.receiver = new ReceiverTCP(true);
         this.server = new Thread(receiver);
         this.server.start();
