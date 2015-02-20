@@ -7,7 +7,7 @@ public class Fachada {
 	private Servidor server;
 
 	Fachada(String protocolo){
-		this.server = new Servidor(protocolo);
+		//this.server = new Servidor(protocolo);
 	}
 	
 	public void conectarUsuario(){

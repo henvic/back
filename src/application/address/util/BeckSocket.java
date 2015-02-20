@@ -1,18 +1,38 @@
 package application.address.util;
 
+import Server.Servidor;
+import application.address.business.BusinessUser;
+import application.address.model.User;
+import application.address.model.UserBTP;
+import protocol.BackTP;
+import protocol.Packet;
+
+import java.io.IOException;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.SocketException;
+import java.net.UnknownHostException;
 
 public class BeckSocket extends DatagramSocket{
-	private String ipDestino;
+	private User destino;
+	private BackTP protocol;
+
+	private Servidor server;
 	
-	public BeckSocket(int port, String ipDestino) throws SocketException {
+	public BeckSocket(int port, User destino, Servidor server) throws IOException {
 		super(port);
-		this.ipDestino = ipDestino;
+		this.destino = destino;
+		//protocol = new BackTP(new UserBTP("server", InetAddress.getLocalHost().getHostName()), (UserBTP) destino, this);
 	}
 
 	public String getIpDestino() {
-		return ipDestino;
+		return destino.getIp();
+	}
+
+	public void receive (Packet p) {
+		if (p.getType().equals("p2p.....")) {
+			//String[] split = new String(protocol.getBytes(p.getData(), p.getDataLength())).split("\n");
+		}
 	}
 
 }

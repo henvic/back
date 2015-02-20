@@ -28,10 +28,8 @@ public class Servidor {
 	private DatagramSocket receiverSocket;
 	private ReceiverBTP receiver;
 
-	//thread garçom
+	//array de threads
 	private LinkedList<BeckSocket> becks;
-	private DatagramSocket receiverSocketG;
-	private ReceiverBTP receiverG;
 
 	//identificacao do servidor p/ clientes (conectar)
 	private final int PORT = 50000;
@@ -90,59 +88,18 @@ public class Servidor {
 				}
 			}).start();
 
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					becks = new LinkedList<BeckSocket>();
-					BeckSocket cur;
-					while (true) {
-						boolean run = true;
-
-						if(!becks.isEmpty()) {
-							cur = becks.getFirst();
-							int i = 1;
-
-							while (run && running) {
-								boolean noErro = true;
-
-								byte[] udpBuffer = new byte[receiverG.getBufferSize() + Packet.HEADER_SIZE];
-								DatagramPacket packet = new DatagramPacket(udpBuffer, udpBuffer.length);
-
-								try {
-									cur.setSoTimeout(100);
-									cur.receive(packet);
-								} catch (SocketException e) {
-									e.printStackTrace();
-								} catch (IOException e) {
-									System.err.println("nada a receber");
-									noErro = false;
-								}
-
-								if(noErro) {
-									
-								}
-
-								if (becks.iterator().hasNext()) {
-									cur = becks.get(i);
-								}
-
-								if (cur == becks.getLast()) {
-									run = false;
-								}
-							}
-						}
-					}
-				}
-			}).start();
 		}
 	}
 	
 	public void conectarAoServidor(User user, int port) {
 		controlUsers.addUser(user);
 		try {
-			BeckSocket beck = new BeckSocket(port, user.getIp());
+			BeckSocket beck = new BeckSocket(port, user, this);
 			//adiciona beck no vetor
+			becks.addLast(beck);
 		} catch (SocketException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 

@@ -18,9 +18,9 @@ public class BusinessUser {
 	
 	public void removeUser(String ip){
 		if(!exist(ip)){
-			throw new NullPointerException("Cliente não existente");
+			throw new NullPointerException("Cliente nï¿½o existente");
 		}else{			
-			users.remover(ip);
+			users.remove(ip);
 		}
 	}
 	
