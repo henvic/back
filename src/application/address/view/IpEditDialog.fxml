@@ -23,4 +23,10 @@
       <Label layoutX="40.0" layoutY="97.0" text="LocalIp" />
       <TextField fx:id="userName" editable="false" layoutX="116.0" layoutY="43.0" />
       <TextField fx:id="localIp" editable="false" layoutX="116.0" layoutY="93.0" />
+      <RadioButton layoutX="40.0" layoutY="175.0" mnemonicParsing="false" text="Online">
+         <toggleGroup>
+            <ToggleGroup fx:id="onOrOff" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton layoutX="163.0" layoutY="175.0" mnemonicParsing="false" text="Ofline" toggleGroup="$onOrOff" />
 </children></AnchorPane>
