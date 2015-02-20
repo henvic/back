@@ -89,4 +89,21 @@ public class RootLayoutController {
 		return connectClicked;
 	}
 
+	public String getUserName() {
+		return userName;
+	}
+
+	public String getIp() {
+		return ip;
+	}
+
+	public String getServerIp() {
+		return serverIp;
+	}
+
+	public String getConexao() {
+		return conexao;
+	}
+
+	
 }
