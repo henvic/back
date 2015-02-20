@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 
 import org.controlsfx.dialog.Dialogs;
 
+import application.address.facade.Fachada;
 import application.address.model.User;
 import application.address.util.IteratorUser;
 import application.address.util.RepositoryUser;
@@ -39,7 +40,8 @@ public class IpEditDialogController {
 	private TextField cityField;
 	@FXML
 	private TextField birthdayField;
-
+	@FXML private TextField userName;
+	@FXML private TextField localIp;
 	private ObservableList<User> usersList = FXCollections
 			.observableArrayList();
 
@@ -69,20 +71,22 @@ public class IpEditDialogController {
 				(observable, oldValue, newValue) -> showUserDetails(newValue));
 	}
 
-	public void enfiarParametro(RepositoryUser users){
+	public void enfiarParametro(RepositoryUser users, User eu, Stage stage){
+		this.userName.setText(eu.getUsername());
+		this.dialogStage = stage;
+		this.localIp.setText(eu.getIp());
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				while(true){
-					Platform.runLater(new Runnable() {
-
+					Platform.runLater(new Runnable() {						
 						@Override
 						public void run() {
 							User selected = userTable.getSelectionModel().getSelectedItem();
 							usersList.setAll(users.getElements());
+//							System.out.println(users.getElements().size());
 							userTable.getSelectionModel().select(selected);;
 						}
-
 					});
 					try {
 						Thread.sleep(200);
@@ -162,6 +166,7 @@ public class IpEditDialogController {
 		if (isInputValid()) {
 			userTable.getSelectionModel().getSelectedItem();
 			okClicked = true;
+			//fazer a conexão p2p, tenho 2 usuários aqui.
 			dialogStage.close();
 		}
 	}

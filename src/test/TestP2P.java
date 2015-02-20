@@ -18,6 +18,7 @@ import application.address.model.UserTCP;
 public class TestP2P{
 	
     public static void  main (String args[]) {
+    	System.out.println("hi");
 		while (true){
 			Scanner in = new Scanner(System.in);
 			String tipo = in.nextLine();
@@ -25,12 +26,13 @@ public class TestP2P{
 			User me = null;
 			User user = null;
 			if(tipo.equalsIgnoreCase("TCP")){
-				me = new UserTCP("leo", "172.22.46.18");
+				me = new UserTCP("leo", "localhost");
 				user = new UserTCP("<nome aqui>", "localhost");
 				//baixa
 			} else {
 				me = new UserBTP("leo", "localhost");
 				user = new UserBTP("<nome aqui>", "172.22.46.18"); //destino
+				user = new UserBTP("<nome aqui>", "localhost"); //destino
 			}
 			try {
 				Back protocol = null;
@@ -45,6 +47,7 @@ public class TestP2P{
 
 				while(running){
 					System.out.println("eu aqui");
+//					System.out.println(System.currentTimeMillis());
 					String message = "";
 					if(message.equals("resend")){
 
@@ -81,5 +84,6 @@ public class TestP2P{
 				e.printStackTrace();
 			}
 		}
+
     }
 }

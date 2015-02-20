@@ -1,67 +1,69 @@
-package protocol;
+﻿package protocol;
 
 import java.io.IOException;
 
 import application.address.model.Sender;
-import application.address.model.SenderTCP;
 import application.address.model.UserBTP;
 import application.address.model.UserTCP;
 import messageCenter.ReceiverBTP;
 import messageCenter.ReceiverTCP;
 
 public class TCP implements Back {
+	
+	public UserTCP sourceUser;
+	public Thread server;
+	private ReceiverTCP receiver;
+	public Sender client;
 
-    public UserTCP sourceUser;
-    public Thread server;
-    private ReceiverTCP receiver;
-    public Sender client;
+	private int fileNumber;
+	private int nextSeq;
 
-    private int fileNumber;
-    private int nextSeq;
+	public TCP(UserTCP source, UserTCP destination) throws IOException {
 
-    public TCP(UserTCP source, UserTCP destination) throws IOException {
+		this.sourceUser = source;
+		this.fileNumber = 0;
+//		this.client = new Sender(destination, false);
 
-        this.sourceUser = source;
-        this.fileNumber = 0;
-
-        this.client = new SenderTCP(destination);
-        this.receiver = new ReceiverTCP(true);
-        this.server = new Thread(receiver);
-        this.server.start();
-
-
-    }
-
-    @Override
-    public void sendText(String text) throws IOException {
-        send(text.getBytes(), "default");
-    }
-
-    @Override
-    public void send(byte[] data, String fileExtension) throws IOException {	//implementação semelhante ao UDP
-        Packet p  = new Packet(this.fileNumber, fileExtension, nextSeq, 0, true, data, data.length );
-        client.send(getPacketBytes(p));
-
-    }
-
-    @Override
-    public byte[] getPacketBytes(Packet p) {	//implementar igual ao UDP
-        return p.getBytes();
-    }
+		this.receiver = new ReceiverTCP(destination, true);
+		this.server = new Thread(receiver);
+		this.server.start();
+		
+		this.client = new Sender(destination, false);
+		
 
 
-    @Override
-    public void receiveACK() {	//não faz nada, já tem implementado implicitament no Socket
-    }
+	}
 
-    public Thread getServer() {
-        return server;
-    }
+	@Override
+	public void sendText(String text) throws IOException {
+		send(text.getBytes(), "default");		
+	}
 
-    public void setServer(Thread server) {
-        this.server = server;
-    }
+	@Override
+	public void send(byte[] data, String fileExtension) throws IOException {	//implementação semelhante ao UDP
+		Packet p  = new Packet(this.fileNumber, fileExtension, nextSeq, 0, true, data, data.length );
+		client.send(getPacketBytes(p));
+		
+	}
+
+	@Override
+	public byte[] getPacketBytes(Packet p) {	//implementar igual ao UDP
+		return p.toString().getBytes();
+	}
 
 
+	@Override
+	public void receiveACK() {	//não faz nada, já tem implementado implicitament no Socket		
+	}
+
+	public Thread getServer() {
+		return server;
+	}
+
+	public void setServer(Thread server) {
+		this.server = server;
+	}
+
+	
 
 }

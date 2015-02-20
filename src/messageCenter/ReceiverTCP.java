@@ -23,9 +23,9 @@ public class ReceiverTCP extends Receiver implements Runnable {
 	private ServerSocket welcome;
 	private InputStream tcpBuffer;
 
-	public ReceiverTCP(boolean running) throws IOException {
-		super(running);
-		welcome = new ServerSocket(this.getPORT()+1);
+	public ReceiverTCP(User destination, boolean running) throws IOException {
+		super(destination, running);
+		welcome = new ServerSocket(this.getPORT());
 		System.err.println("SOU UMA PUTA");
 		receiverSocket = welcome.accept();
 		tcpBuffer = receiverSocket.getInputStream();
@@ -55,12 +55,12 @@ public class ReceiverTCP extends Receiver implements Runnable {
 						int tam = packet.getData().length;
 						saidaII.write(packet.getData());
 						saidaII.flush();
-
 						while((tamanho = tcpBuffer.available()) != 0){
 							dados = new byte[tamanho];
 							tcpBuffer.read(dados);
 							saidaII.write(dados);
 							saidaII.flush();
+							System.out.println("z");
 						}
 						saidaII.close();
 						System.out.println("y");
